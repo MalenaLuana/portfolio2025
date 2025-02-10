@@ -1,8 +1,13 @@
 import { windows } from "@/app/types";
+import { Axis } from "@mui/material/Slider/useSlider.types";
 import { ReactNode } from "react";
 
 export interface IDraggable {
   children: ReactNode;
   windowKey: windows;
-  position: { x: number; y: number };
+  top: number;
+  left: number;
+  axis?: Axis;
+  handle?: boolean;
+  style?: React.CSSProperties;
 }

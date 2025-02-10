@@ -4,18 +4,27 @@ import { MainContainer } from "./styles";
 import { windows } from "./types";
 import { useWindows } from "@/context/windowsContext";
 import { ReactElement, useState } from "react";
-import { DndContext, DragEndEvent, DragMoveEvent } from "@dnd-kit/core";
-import { Droppable } from "@/components/Droppable";
+import {
+  DndContext,
+  useDraggable,
+  useSensor,
+  MouseSensor,
+  TouchSensor,
+  KeyboardSensor,
+  PointerActivationConstraint,
+  Modifiers,
+  useSensors,
+  type DragPendingEvent,
+  useDndMonitor,
+} from "@dnd-kit/core";
 import { Draggable } from "@/components/Draggable";
 import { restrictToWindowEdges } from "@dnd-kit/modifiers";
+import { Coordinates } from "@dnd-kit/core/dist/types";
 
 export default function Home() {
   const { openWindows } = useWindows();
-  const [windowPositions, setWindowPositions] = useState<
-    Record<windows, { x: number; y: number }>
-  >({
-    [windows.user]: { x: 100, y: 100 }, // Posición inicial
-  });
+  const [{ x, y }, setCoordinates] = useState<Coordinates>({ x: 300, y: 29 });
+
   const windowsComponents: Record<windows, ReactElement> = {
     [windows.user]: (
       <div className="window-content">
@@ -23,26 +32,19 @@ export default function Home() {
       </div>
     ),
   };
-  const handleDragEnd = (event: DragEndEvent) => {
-    const { active, delta } = event;
-    setWindowPositions((prev) => {
-      const prevX = prev[active.id]?.x || 0;
-      const prevY = prev[active.id]?.y || 0;
-      return {
-        ...prev,
-        [active.id]: {
-          x: delta.x ?? prevX,
-          y: delta.y ?? prevY,
-        },
-      };
-    });
-  };
 
   return (
     <MainContainer>
       <DndContext
         modifiers={[restrictToWindowEdges]}
-        onDragMove={(event) => handleDragEnd(event)}
+        onDragEnd={({ delta }) => {
+          setCoordinates(({ x, y }) => {
+            return {
+              x: x + delta.x,
+              y: y + delta.y,
+            };
+          });
+        }}
       >
         {Object.keys(openWindows)
           .filter(
@@ -54,9 +56,11 @@ export default function Home() {
             return (
               openWindows[windowKey] && (
                 <Draggable
+                  top={y}
+                  left={x}
+                  axis={"horizontal"}
                   key={windowKey}
                   windowKey={windowKey}
-                  position={windowPositions[windowKey]}
                 >
                   <div className="window">{windowsComponents[windowKey]}</div>
                 </Draggable>
