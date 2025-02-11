@@ -17,10 +17,9 @@ export const WindowsProvider = ({ children }: { children: ReactNode }) => {
   });
 
   const toggleWindow = (windowName: windows, value: boolean) => {
-    setOpenWindows((prev) => ({
-      ...prev,
+    setOpenWindows({
       [windowName]: value,
-    }));
+    });
   };
 
   return (

@@ -12,4 +12,6 @@ export enum iconName {
   image = "image",
   mail = "mail",
   userSquare = "user-square",
+  close = "close",
+  maximize = "maximize",
 }

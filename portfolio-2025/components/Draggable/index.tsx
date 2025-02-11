@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { useDraggable } from "@dnd-kit/core";
 import { IDraggable } from "./types";
-import { Container } from "./styles";
+import { ActionButton, Container, Content, TopHandler } from "./styles";
 import { CSS } from "@dnd-kit/utilities";
+import { useWindows } from "@/context/windowsContext";
+import { iconName } from "../Icon/types";
 
 export const Draggable = ({
   children,
@@ -15,26 +17,39 @@ export const Draggable = ({
     useDraggable({
       id: windowKey,
     });
-
+  const [maximize, setMaximized] = useState(false);
+  const { toggleWindow } = useWindows();
   return (
     <Container
+      left={left}
+      top={top}
+      maximized={maximize}
       ref={setNodeRef}
       style={
         {
           ...style,
           position: "absolute",
-          top,
-          left,
+          top: maximize ? 0 : top,
+          left: maximize ? 0 : left,
           "--translate-x": `${transform?.x ?? 0}px`,
           "--translate-y": `${transform?.y ?? 0}px`,
           transform: isDragging ? CSS.Translate.toString(transform) : "none",
         } as React.CSSProperties
       }
     >
-      <button {...listeners} {...attributes}>
-        cosas
-      </button>
-      {children}
+      <TopHandler {...listeners} {...attributes}>
+        <ActionButton
+          onPointerDown={(e) => e.stopPropagation()}
+          onClick={() => setMaximized(!maximize)}
+          icon={iconName.maximize}
+        />
+        <ActionButton
+          onPointerDown={(e) => e.stopPropagation()}
+          onClick={() => toggleWindow(windowKey, false)}
+          icon={iconName.close}
+        />
+      </TopHandler>
+      <Content>{children}</Content>
     </Container>
   );
 };

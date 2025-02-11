@@ -4,19 +4,7 @@ import { MainContainer } from "./styles";
 import { windows } from "./types";
 import { useWindows } from "@/context/windowsContext";
 import { ReactElement, useState } from "react";
-import {
-  DndContext,
-  useDraggable,
-  useSensor,
-  MouseSensor,
-  TouchSensor,
-  KeyboardSensor,
-  PointerActivationConstraint,
-  Modifiers,
-  useSensors,
-  type DragPendingEvent,
-  useDndMonitor,
-} from "@dnd-kit/core";
+import { DndContext } from "@dnd-kit/core";
 import { Draggable } from "@/components/Draggable";
 import { restrictToWindowEdges } from "@dnd-kit/modifiers";
 import { Coordinates } from "@dnd-kit/core/dist/types";
@@ -27,7 +15,7 @@ export default function Home() {
 
   const windowsComponents: Record<windows, ReactElement> = {
     [windows.user]: (
-      <div className="window-content">
+      <div>
         <Typography key={"key"}>VENTANAAAAAAAAAA</Typography>
       </div>
     ),
@@ -58,11 +46,10 @@ export default function Home() {
                 <Draggable
                   top={y}
                   left={x}
-                  axis={"horizontal"}
                   key={windowKey}
                   windowKey={windowKey}
                 >
-                  <div className="window">{windowsComponents[windowKey]}</div>
+                  {windowsComponents[windowKey]}
                 </Draggable>
               )
             );

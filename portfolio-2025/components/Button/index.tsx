@@ -5,9 +5,18 @@ import { Icon } from "../Icon";
 import { playSound } from "@/utils/playSound";
 import { sounds } from "@/utils/playSound/types";
 
-export const Button = ({ label, icon, color, onClick }: IButton) => {
+export const Button = ({
+  label,
+  icon,
+  color,
+  onClick,
+  className,
+  onPointerDown,
+}: IButton) => {
   return (
     <ButtonStyled
+      onPointerDown={onPointerDown}
+      className={className}
       onMouseDown={() => playSound(sounds.buttonClick)}
       onClick={onClick}
     >
