@@ -9,6 +9,7 @@ export enum color {
   white500 = "#FFFFFF",
   //blue
   blue500 = "#4B80A5",
+  blue700 = "#495D6A",
   //yellow
   yellow500 = "#FFF58A",
 }

@@ -1,26 +1,28 @@
 "use client";
-import { Typography } from "@mui/material";
-import { MainContainer } from "./styles";
+import { AppIcon, Icon, MainContainer } from "./styles";
 import { windows } from "./types";
 import { useWindows } from "@/context/windowsContext";
-import { ReactElement, useEffect, useState } from "react";
+import { ReactElement } from "react";
 import { DndContext } from "@dnd-kit/core";
 import { Draggable } from "@/components/Draggable";
 import { restrictToWindowEdges } from "@dnd-kit/modifiers";
 import { WeatherWidget } from "@/modules/wheatherWidget";
+import { useWallpaper } from "@/context/wallpaperContext";
+import { SnakeGame } from "@/modules/snakeGame";
+import snakeImg from "@/public/images/snakeGame.png";
+import Image from "next/image";
+import { color } from "@/utils/constants";
 
 export default function Home() {
   const { openWindows, setWindowPosition } = useWindows();
+  const { wallpaperImage } = useWallpaper();
+
   const windowsComponents: Record<windows, ReactElement> = {
-    [windows.user]: (
-      <div>
-        <p key={"key"}>Esta es la letra</p>
-      </div>
-    ),
+    [windows.user]: <SnakeGame />,
   };
 
   return (
-    <MainContainer>
+    <MainContainer backgroundImage={wallpaperImage}>
       <DndContext
         modifiers={[restrictToWindowEdges]}
         onDragEnd={({ delta, active }) => {
@@ -55,6 +57,19 @@ export default function Home() {
             );
           })}
       </DndContext>
+      <AppIcon>
+        <Icon>
+          <Image
+            style={{ objectFit: "contain" }}
+            src={snakeImg}
+            fill
+            alt="snake_game"
+          />
+        </Icon>
+        <p style={{ background: `${color.primary500}`, padding: "2px" }}>
+          Snake Game
+        </p>
+      </AppIcon>
       <WeatherWidget />
     </MainContainer>
   );
