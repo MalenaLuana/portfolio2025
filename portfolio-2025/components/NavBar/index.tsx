@@ -4,18 +4,20 @@ import { iconName } from "../Icon/types";
 import { Container } from "./styles";
 import { windows } from "@/app/types";
 import { useWindows } from "@/context/windowsContext";
+import { Clock } from "../Clock";
 
 export const NavBar = () => {
-  const { toggleWindow } = useWindows();
+  const { toggleWindow, openWindows } = useWindows();
   const content = [
     { icon: iconName.image, onClick: () => {} },
     {
       icon: iconName.userSquare,
-      onClick: () => toggleWindow(windows.user, true),
+      onClick: () => toggleWindow(windows.user, !openWindows.user?.isOpen),
     },
     { icon: iconName.mail, onClick: () => {} },
     { icon: iconName.cog, onClick: () => {} },
   ];
+
   return (
     <Container>
       {content.map((item) => (
@@ -26,6 +28,7 @@ export const NavBar = () => {
           onClick={item.onClick}
         />
       ))}
+      <Clock />
     </Container>
   );
 };

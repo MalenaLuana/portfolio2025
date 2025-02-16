@@ -3,20 +3,18 @@ import { Typography } from "@mui/material";
 import { MainContainer } from "./styles";
 import { windows } from "./types";
 import { useWindows } from "@/context/windowsContext";
-import { ReactElement, useState } from "react";
+import { ReactElement, useEffect, useState } from "react";
 import { DndContext } from "@dnd-kit/core";
 import { Draggable } from "@/components/Draggable";
 import { restrictToWindowEdges } from "@dnd-kit/modifiers";
-import { Coordinates } from "@dnd-kit/core/dist/types";
+import { WeatherWidget } from "@/modules/wheatherWidget";
 
 export default function Home() {
-  const { openWindows } = useWindows();
-  const [{ x, y }, setCoordinates] = useState<Coordinates>({ x: 300, y: 29 });
-
+  const { openWindows, setWindowPosition } = useWindows();
   const windowsComponents: Record<windows, ReactElement> = {
     [windows.user]: (
       <div>
-        <Typography key={"key"}>VENTANAAAAAAAAAA</Typography>
+        <p key={"key"}>Esta es la letra</p>
       </div>
     ),
   };
@@ -25,13 +23,14 @@ export default function Home() {
     <MainContainer>
       <DndContext
         modifiers={[restrictToWindowEdges]}
-        onDragEnd={({ delta }) => {
-          setCoordinates(({ x, y }) => {
-            return {
-              x: x + delta.x,
-              y: y + delta.y,
-            };
-          });
+        onDragEnd={({ delta, active }) => {
+          const windowKey = active.id as windows;
+          const windowData = openWindows[windowKey];
+
+          if (windowData) {
+            const { x, y } = windowData.position;
+            setWindowPosition(windowKey, x + delta.x, y + delta.y);
+          }
         }}
       >
         {Object.keys(openWindows)
@@ -41,11 +40,12 @@ export default function Home() {
           )
           .map((windowName) => {
             const windowKey = windowName as windows;
+            const windowData = openWindows[windowKey];
             return (
-              openWindows[windowKey] && (
+              openWindows[windowKey]?.isOpen && (
                 <Draggable
-                  top={y}
-                  left={x}
+                  top={windowData?.position.y ?? 300}
+                  left={windowData?.position.x}
                   key={windowKey}
                   windowKey={windowKey}
                 >
@@ -55,6 +55,7 @@ export default function Home() {
             );
           })}
       </DndContext>
+      <WeatherWidget />
     </MainContainer>
   );
 }

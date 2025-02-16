@@ -7,4 +7,8 @@ export enum color {
   primary800 = "#435058",
   //background
   white500 = "#FFFFFF",
+  //blue
+  blue500 = "#4B80A5",
+  //yellow
+  yellow500 = "#FFF58A",
 }

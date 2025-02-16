@@ -4,17 +4,14 @@ import { Button } from "../Button";
 
 export const Container = styled("div")<{
   maximized: boolean;
-  top: number;
-  left: number;
-}>(({ maximized, left, top }) => ({
+}>(({ maximized }) => ({
   border: "solid 3px",
   borderColor: color.primary500,
   width: maximized ? "100%" : "300px",
   height: maximized ? "100%" : "400px",
-  transition: `width 0.2s ease-in-out, height 0.2s ease-in-out, ${
-    top == 0 && left == 0 ? "top 0.1s ease,left 0.1s ease" : ""
-  }`,
   overflow: "hidden",
+  boxShadow: "4px 4px 6px",
+  zIndex: 3,
 }));
 
 export const TopHandler = styled("div")(() => ({
@@ -23,15 +20,24 @@ export const TopHandler = styled("div")(() => ({
   background: color.primary300,
   width: "100%",
   display: "flex",
-  justifyContent: "flex-end",
-  gap: "10px",
+  justifyContent: "space-between",
   padding: "5px 5px",
+  fontSize: 10,
 }));
+
 export const Content = styled("div")(() => ({
   width: "100%",
   height: "100%",
   background: color.white500,
+  padding: "30px",
+  overflowY: "scroll",
 }));
+
+export const ButtonContainer = styled("div")(() => ({
+  display: "flex",
+  gap: "10px",
+}));
+
 export const ActionButton = styled(Button)(() => ({
   border: "solid 1px",
   background: color.primary100,
