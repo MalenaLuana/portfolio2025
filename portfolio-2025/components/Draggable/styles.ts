@@ -8,7 +8,7 @@ export const Container = styled("div")<{
   border: "solid 3px",
   borderColor: color.primary500,
   width: maximized ? "100%" : "auto",
-  height: maximized ? "100%" : "auto",
+  height: maximized ? "90vh" : "auto",
   overflow: "hidden",
   boxShadow: "4px 4px 6px",
   zIndex: 3,
@@ -23,6 +23,7 @@ export const TopHandler = styled("div")(() => ({
   justifyContent: "space-between",
   padding: "5px 5px",
   fontSize: 10,
+  height: "5vh",
 }));
 
 export const Content = styled("div")(() => ({

@@ -19,6 +19,7 @@ export const MainContainer = styled("div")({
   color: "white",
   border: "2px solid",
   borderColor: color.blue500,
+  zIndex: 0,
 });
 
 export const Tempt = styled("p")({

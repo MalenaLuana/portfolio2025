@@ -1,5 +1,5 @@
 "use client";
-import { AppIcon, Icon, MainContainer } from "./styles";
+import { MainContainer } from "./styles";
 import { windows } from "./types";
 import { useWindows } from "@/context/windowsContext";
 import { ReactElement } from "react";
@@ -9,12 +9,11 @@ import { restrictToWindowEdges } from "@dnd-kit/modifiers";
 import { WeatherWidget } from "@/modules/wheatherWidget";
 import { useWallpaper } from "@/context/wallpaperContext";
 import { SnakeGame } from "@/modules/snakeGame";
-import snakeImg from "@/public/images/snakeGame.png";
-import Image from "next/image";
-import { color } from "@/utils/constants";
+import { AppIcon } from "@/components/AppIcon";
+import snakeImg from "@/public/images/Snake.png";
 
 export default function Home() {
-  const { openWindows, setWindowPosition, toggleWindow } = useWindows();
+  const { openWindows, setWindowPosition } = useWindows();
   const { wallpaperImage } = useWallpaper();
 
   const windowsComponents: Record<windows, ReactElement> = {
@@ -58,19 +57,11 @@ export default function Home() {
             );
           })}
       </DndContext>
-      <AppIcon onClick={() => toggleWindow(windows.snakeGame, true)}>
-        <Icon>
-          <Image
-            style={{ objectFit: "contain" }}
-            src={snakeImg}
-            fill
-            alt="snake_game"
-          />
-        </Icon>
-        <p style={{ background: `${color.primary500}`, padding: "2px" }}>
-          Snake Game
-        </p>
-      </AppIcon>
+      <AppIcon
+        image={snakeImg.src}
+        windowName={windows.snakeGame}
+        label="Snake Game"
+      />
       <WeatherWidget />
     </MainContainer>
   );

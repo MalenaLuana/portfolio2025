@@ -13,3 +13,17 @@ export enum color {
   //yellow
   yellow500 = "#FFF58A",
 }
+
+export enum keyboard {
+  ArrowRight = "ArrowRight",
+  ArrowLeft = "ArrowLeft",
+  ArrowUp = "ArrowUp",
+  ArrowDown = "ArrowDown",
+}
+
+export enum directions {
+  up = "UP",
+  down = "DOWN",
+  left = "LEFT",
+  right = "RIGHT",
+}

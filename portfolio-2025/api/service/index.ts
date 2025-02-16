@@ -8,7 +8,7 @@ const getCurrentWeather = async (): Promise<WeatherResponse> => {
       `${process.env.NEXT_PUBLIC_WEATHER_URL}/current.json`,
       {
         params: {
-          key: process.env.NEXT_PUBLIC_WHEATHER_API_KEY,
+          key: process.env.NEXT_PUBLIC_WEATHER_API_KEY,
           q: "buenos aires",
           lang: "es",
           day: 1,

@@ -15,20 +15,7 @@ export const MainContainer = styled("div")<{ backgroundImage: string }>(
   })
 );
 
-export const AppIcon = styled("div")(() => ({
+export const LayoutBox = styled("div")(() => ({
   display: "flex",
   flexDirection: "column",
-  fontSize: 10,
-  transition: "transform 0.2s ease-in-out",
-  position: "absolute",
-  right: "50px",
-  top: "40px",
-  color: "white",
-  gap: "10px",
-  ":hover": { cursor: "pointer" },
-}));
-
-export const Icon = styled("div")(() => ({
-  height: " 80px",
-  width: "80px",
 }));
