@@ -23,10 +23,10 @@ export const Draggable = ({
     useDraggable({
       id: windowKey,
     });
-  const [maximize, setMaximized] = useState(false);
   const [screenSize, setScreenSize] = useState({ width: 0, height: 0 });
 
-  const { toggleWindow, setWindowPosition, openWindows } = useWindows();
+  const { toggleWindow, setWindowPosition, openWindows, toggleMaximized } =
+    useWindows();
 
   useEffect(() => {
     const updateSize = () => {
@@ -50,14 +50,14 @@ export const Draggable = ({
 
   return (
     <Container
-      maximized={maximize}
+      maximized={Boolean(openWindows[windowKey]?.maximized)}
       ref={setNodeRef}
       style={
         {
           ...style,
           position: "absolute",
-          top: maximize ? 0 : top,
-          left: maximize ? 0 : left,
+          top: openWindows[windowKey]?.maximized ? 0 : top,
+          left: openWindows[windowKey]?.maximized ? 0 : left,
           "--translate-x": `${transform?.x ?? 0}px`,
           "--translate-y": `${transform?.y ?? 0}px`,
           transform: isDragging ? CSS.Translate.toString(transform) : "none",
@@ -69,7 +69,12 @@ export const Draggable = ({
         <ButtonContainer>
           <ActionButton
             onPointerDown={(e) => e.stopPropagation()}
-            onClick={() => setMaximized(!maximize)}
+            onClick={() =>
+              toggleMaximized(
+                windowKey,
+                !Boolean(openWindows[windowKey]?.maximized)
+              )
+            }
             icon={iconName.maximize}
           />
           <ActionButton

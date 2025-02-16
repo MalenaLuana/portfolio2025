@@ -6,8 +6,15 @@ import { WindowData, WindowsContextType, windowsTitle } from "./types";
 const WindowsContext = createContext<WindowsContextType | undefined>(undefined);
 
 export const WindowsProvider = ({ children }: { children: ReactNode }) => {
-  const [openWindows, setOpenWindows] = useState<{ [key in windows]?: WindowData }>({
-    [windows.user]: { isOpen: false, position: { x: 0, y: 0 }, ref: null, title: windowsTitle.user },
+  const [openWindows, setOpenWindows] = useState<{
+    [key in windows]?: WindowData;
+  }>({
+    [windows.user]: {
+      isOpen: false,
+      position: { x: 0, y: 0 },
+      ref: null,
+      title: windowsTitle.user,
+    },
   });
 
   const toggleWindow = (windowName: windows, value: boolean) => {
@@ -16,7 +23,7 @@ export const WindowsProvider = ({ children }: { children: ReactNode }) => {
       [windowName]: {
         isOpen: value,
         position: prev[windowName]?.position || { x: 0, y: 0 },
-        title: prev[windowName]?.title || ''
+        title: prev[windowName]?.title || "",
       },
     }));
   };
@@ -27,7 +34,7 @@ export const WindowsProvider = ({ children }: { children: ReactNode }) => {
       [windowName]: {
         isOpen: prev[windowName]?.isOpen ?? false,
         position: { x, y },
-        title: prev[windowName]?.title || ''
+        title: prev[windowName]?.title || "",
       },
     }));
   };
@@ -38,13 +45,32 @@ export const WindowsProvider = ({ children }: { children: ReactNode }) => {
         isOpen: prev[windowName]?.isOpen ?? false,
         position: prev[windowName]?.position ?? { x: 0, y: 0 },
         ref,
-        title: prev[windowName]?.title || ''
-      }
+        title: prev[windowName]?.title || "",
+      },
+    }));
+  };
+  const toggleMaximized = (windowName: windows, value: boolean) => {
+    setOpenWindows((prev) => ({
+      ...prev,
+      [windowName]: {
+        isOpen: prev[windowName]?.isOpen ?? false,
+        position: prev[windowName]?.position ?? { x: 0, y: 0 },
+        maximized: value,
+        title: prev[windowName]?.title || "",
+      },
     }));
   };
 
   return (
-    <WindowsContext.Provider value={{ openWindows, toggleWindow, setWindowPosition, setWindowRef }}>
+    <WindowsContext.Provider
+      value={{
+        openWindows,
+        toggleWindow,
+        setWindowPosition,
+        setWindowRef,
+        toggleMaximized,
+      }}
+    >
       {children}
     </WindowsContext.Provider>
   );

@@ -1,52 +1,74 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Box } from "@mui/material";
+import { MainContainer } from "./styles";
+import { color } from "@/utils/constants";
+import { useWindows } from "@/context/windowsContext";
 
 export const SnakeGame = () => {
-  const [snake, setSnake] = useState([{ x: 2, y: 2 }]); // Posición inicial
-  const [food, setFood] = useState({ x: 5, y: 5 }); // Comida inicial
+  const containerRef = useRef<HTMLDivElement>(null); // Usamos el ref para obtener el tamaño del contenedor
+  const [snake, setSnake] = useState([{ x: 2, y: 2 }]);
+  const [food, setFood] = useState({ x: 5, y: 5 });
   const [direction, setDirection] = useState("RIGHT");
   const [gameOver, setGameOver] = useState(false);
   const [score, setScore] = useState(0);
+  const [gameWidth, setGameWidth] = useState(10); // Tamaño dinámico del juego
+  const [gameHeight, setGameHeight] = useState(10);
+
+  const { openWindows } = useWindows();
 
   useEffect(() => {
-    if (gameOver) return; // Si el juego terminó, no hace nada
+    // Ajustar el tamaño del juego según el tamaño del contenedor
+    const updateGameSize = () => {
+      if (containerRef.current) {
+        const containerWidth = containerRef.current.clientWidth;
+        const containerHeight = containerRef.current.clientHeight;
+        setGameWidth(Math.floor(containerWidth / 30)); // Cada bloque tiene 30px
+        setGameHeight(Math.floor(containerHeight / 30)); // Ajusta según el tamaño del contenedor
+      }
+    };
+
+    updateGameSize();
+    window.addEventListener("resize", updateGameSize);
+
+    return () => window.removeEventListener("resize", updateGameSize);
+  }, []);
+
+  useEffect(() => {
+    if (gameOver) return;
 
     const interval = setInterval(() => {
       moveSnake();
-    }, 200); // Cada 200ms mueve la serpiente
+    }, 200);
 
-    return () => clearInterval(interval); // Limpia el intervalo al terminar
+    return () => clearInterval(interval);
   }, [snake, gameOver]);
 
   const moveSnake = () => {
     let newSnake = [...snake];
     let head = { ...newSnake[0] };
 
-    // Mueve la cabeza según la dirección
     if (direction === "RIGHT") head.x += 1;
     if (direction === "LEFT") head.x -= 1;
     if (direction === "UP") head.y -= 1;
     if (direction === "DOWN") head.y += 1;
 
-    newSnake.unshift(head); // Agrega nueva cabeza
+    newSnake.unshift(head);
 
-    // Si la serpiente se comió la comida
     if (head.x === food.x && head.y === food.y) {
       setFood({
-        x: Math.floor(Math.random() * 10),
-        y: Math.floor(Math.random() * 10),
+        x: Math.floor(Math.random() * gameWidth),
+        y: Math.floor(Math.random() * gameHeight),
       });
       setScore(score + 1);
     } else {
-      newSnake.pop(); // Elimina la cola si no comió
+      newSnake.pop();
     }
 
-    // Verifica si colisionó con las paredes o consigo misma
     if (
       head.x < 0 ||
-      head.x >= 10 ||
+      head.x >= gameWidth ||
       head.y < 0 ||
-      head.y >= 10 ||
+      head.y >= gameHeight ||
       newSnake
         .slice(1)
         .some((segment) => segment.x === head.x && segment.y === head.y)
@@ -70,17 +92,9 @@ export const SnakeGame = () => {
   }, [direction]);
 
   return (
-    <Box
-      sx={{
-        display: "grid",
-        gridTemplateColumns: "repeat(10, 30px)",
-        gridTemplateRows: "repeat(10, 30px)",
-        gap: "1px",
-        width: "320px",
-        height: "320px",
-        backgroundColor: "black",
-        position: "relative",
-      }}
+    <MainContainer
+      ref={containerRef}
+      isMaximized={Boolean(openWindows.snakeGame?.maximized)}
     >
       {!gameOver &&
         snake.map((segment, index) => (
@@ -92,7 +106,8 @@ export const SnakeGame = () => {
               left: `${segment.x * 30}px`,
               width: "30px",
               height: "30px",
-              backgroundColor: "green",
+              backgroundColor: color.blue500,
+              borderRadius: "5px",
             }}
           />
         ))}
@@ -104,7 +119,8 @@ export const SnakeGame = () => {
             left: `${food.x * 30}px`,
             width: "30px",
             height: "30px",
-            backgroundColor: "red",
+            borderRadius: "32px",
+            backgroundColor: color.yellow500,
           }}
         />
       )}
@@ -121,6 +137,6 @@ export const SnakeGame = () => {
           Game Over - Score: {score}
         </Box>
       )}
-    </Box>
+    </MainContainer>
   );
 };

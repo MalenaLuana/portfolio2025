@@ -7,8 +7,8 @@ export const Container = styled("div")<{
 }>(({ maximized }) => ({
   border: "solid 3px",
   borderColor: color.primary500,
-  width: maximized ? "100%" : "300px",
-  height: maximized ? "100%" : "400px",
+  width: maximized ? "100%" : "auto",
+  height: maximized ? "100%" : "auto",
   overflow: "hidden",
   boxShadow: "4px 4px 6px",
   zIndex: 3,

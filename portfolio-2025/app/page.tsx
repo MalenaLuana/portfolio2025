@@ -14,11 +14,12 @@ import Image from "next/image";
 import { color } from "@/utils/constants";
 
 export default function Home() {
-  const { openWindows, setWindowPosition } = useWindows();
+  const { openWindows, setWindowPosition, toggleWindow } = useWindows();
   const { wallpaperImage } = useWallpaper();
 
   const windowsComponents: Record<windows, ReactElement> = {
-    [windows.user]: <SnakeGame />,
+    [windows.user]: <>Ventana 1</>,
+    [windows.snakeGame]: <SnakeGame />,
   };
 
   return (
@@ -57,7 +58,7 @@ export default function Home() {
             );
           })}
       </DndContext>
-      <AppIcon>
+      <AppIcon onClick={() => toggleWindow(windows.snakeGame, true)}>
         <Icon>
           <Image
             style={{ objectFit: "contain" }}
