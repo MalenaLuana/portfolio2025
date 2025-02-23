@@ -11,13 +11,14 @@ import { useWallpaper } from "@/context/wallpaperContext";
 import { SnakeGame } from "@/modules/snakeGame";
 import { AppIcon } from "@/components/AppIcon";
 import snakeImg from "@/public/images/Snake.png";
+import { UserProfile } from "@/modules/userProfile";
 
 export default function Home() {
   const { openWindows, setWindowPosition } = useWindows();
   const { wallpaperImage } = useWallpaper();
 
   const windowsComponents: Record<windows, ReactElement> = {
-    [windows.user]: <>Ventana 1</>,
+    [windows.user]: <UserProfile />,
     [windows.snakeGame]: <SnakeGame />,
   };
 
