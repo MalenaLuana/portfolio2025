@@ -12,6 +12,8 @@ export enum color {
   blue700 = "#495D6A",
   //yellow
   yellow500 = "#FFF58A",
+  //dark
+  dark500 = "#2A2C30",
 }
 
 export enum keyboard {

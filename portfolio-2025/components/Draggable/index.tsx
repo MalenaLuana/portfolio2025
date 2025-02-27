@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useDraggable } from "@dnd-kit/core";
-import { IDraggable } from "./types";
+import { IDraggable, resizeDirection } from "./types";
 import {
   ActionButton,
+  BorderBottom,
+  BorderRight,
   ButtonContainer,
   Container,
   Content,
@@ -11,6 +13,8 @@ import {
 import { CSS } from "@dnd-kit/utilities";
 import { useWindows } from "@/context/windowsContext";
 import { iconName } from "../Icon/types";
+import { handleMouseDownResize } from "./handlers";
+import { windows } from "@/app/types";
 
 export const Draggable = ({
   children,
@@ -24,9 +28,42 @@ export const Draggable = ({
       id: windowKey,
     });
   const [screenSize, setScreenSize] = useState({ width: 0, height: 0 });
-
+  const [size, setSize] = useState({ width: 500, height: 400 });
+  const [isResizing, setIsResizing] = useState(false);
   const { toggleWindow, setWindowPosition, openWindows, toggleMaximized } =
     useWindows();
+
+  const isMaximized = Boolean(openWindows[windowKey]?.maximized);
+  const disabledResize = windowKey === windows.snakeGame;
+
+  const handleMouseMove = (e: MouseEvent) => {
+    if (isResizing) {
+      const newWidth =
+        e.clientX - (node.current?.getBoundingClientRect().left ?? 0);
+      const newHeight =
+        e.clientY - (node.current?.getBoundingClientRect().top ?? 0);
+      setSize(() => ({
+        width: Math.max(newWidth, 300),
+        height: Math.max(newHeight, 300),
+      }));
+    }
+  };
+  const handleMouseUp = () => {
+    setIsResizing(false);
+    document.removeEventListener("mousemove", handleMouseMove);
+    document.removeEventListener("mouseup", handleMouseUp);
+  };
+
+  useEffect(() => {
+    if (isResizing) {
+      document.addEventListener("mousemove", handleMouseMove);
+      document.addEventListener("mouseup", handleMouseUp);
+    }
+    return () => {
+      document.removeEventListener("mousemove", handleMouseMove);
+      document.removeEventListener("mouseup", handleMouseUp);
+    };
+  }, [isResizing]);
 
   useEffect(() => {
     const updateSize = () => {
@@ -48,23 +85,36 @@ export const Draggable = ({
     }
   }, [screenSize.width]);
 
+  const renderBorders = !isMaximized && !disabledResize;
+
   return (
     <Container
-      maximized={Boolean(openWindows[windowKey]?.maximized)}
+      maximized={isMaximized}
       ref={setNodeRef}
       style={
         {
           ...style,
           position: "absolute",
-          top: openWindows[windowKey]?.maximized ? 0 : top,
-          left: openWindows[windowKey]?.maximized ? 0 : left,
+          top: isMaximized ? 0 : top,
+          left: isMaximized ? 0 : left,
           "--translate-x": `${transform?.x ?? 0}px`,
           "--translate-y": `${transform?.y ?? 0}px`,
+          width: isMaximized ? screenSize.width : size.width,
+          height: isMaximized ? screenSize.height : size.height,
           transform: isDragging ? CSS.Translate.toString(transform) : "none",
         } as React.CSSProperties
       }
     >
-      <TopHandler {...listeners} {...attributes}>
+      <TopHandler
+        {...listeners}
+        {...attributes}
+        onDoubleClick={() =>
+          toggleMaximized(
+            windowKey,
+            !Boolean(openWindows[windowKey]?.maximized)
+          )
+        }
+      >
         <p>{openWindows[windowKey]?.title}</p>
         <ButtonContainer>
           <ActionButton
@@ -85,6 +135,20 @@ export const Draggable = ({
         </ButtonContainer>
       </TopHandler>
       <Content>{children}</Content>
+      {renderBorders ? (
+        <BorderRight
+          onMouseDown={(e) =>
+            handleMouseDownResize(e, resizeDirection.horizontal, size, setSize)
+          }
+        />
+      ) : null}
+      {renderBorders ? (
+        <BorderBottom
+          onMouseDown={(e) =>
+            handleMouseDownResize(e, resizeDirection.vertical, size, setSize)
+          }
+        />
+      ) : null}
     </Container>
   );
 };

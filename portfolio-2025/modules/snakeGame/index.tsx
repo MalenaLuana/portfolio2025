@@ -13,7 +13,7 @@ export const SnakeGame = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [snake, setSnake] = useState([{ x: 2, y: 2 }]);
   const [food, setFood] = useState({ x: 5, y: 5 });
-  const [direction, setDirection] = useState("RIGHT");
+  const [direction, setDirection] = useState<directions>(directions.right);
   const [gameOver, setGameOver] = useState(false);
   const [score, setScore] = useState(0);
   const [gameWidth, setGameWidth] = useState(10);
@@ -26,7 +26,7 @@ export const SnakeGame = () => {
       x: Math.floor(Math.random() * gameWidth),
       y: Math.floor(Math.random() * gameHeight),
     });
-    setDirection("RIGHT");
+    setDirection(directions.right);
     setGameOver(false);
     setScore(0);
   };
@@ -56,10 +56,8 @@ export const SnakeGame = () => {
   }, []);
 
   useEffect(() => {
-    updateGameSize(); // Llamamos la función una vez al montar
+    updateGameSize();
     window.addEventListener("resize", updateGameSize);
-    console.log(gameWidth);
-
     return () => window.removeEventListener("resize", updateGameSize);
   }, [openWindows.snakeGame?.maximized]);
 
@@ -143,7 +141,7 @@ export const SnakeGame = () => {
       {gameOver && (
         <GameOverBox>
           <p> Game Over Score: {score}</p>
-          <PlayAgain label="Jugar de nuevo" onClick={resetGame} />
+          <PlayAgain onClick={resetGame}> Jugar de nuevo</PlayAgain>
         </GameOverBox>
       )}
     </MainContainer>

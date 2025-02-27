@@ -11,3 +11,10 @@ export interface IDraggable {
   handle?: boolean;
   style?: React.CSSProperties;
 }
+
+export enum resizeDirection {
+  horizontal = "horizontal",
+  vertical = "vertical",
+}
+
+export type windowSize = { width: number; height: number };

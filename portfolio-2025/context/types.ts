@@ -18,4 +18,5 @@ export interface WindowsContextType {
 
 export const windowsTitle = {
   [windows.user]: "Biografía_del_usuario",
+  [windows.snakeGame]: "Snake_Game 🐍",
 };

@@ -15,6 +15,13 @@ export const WindowsProvider = ({ children }: { children: ReactNode }) => {
       ref: null,
       title: windowsTitle.user,
     },
+    [windows.snakeGame]: {
+      isOpen: false,
+      position: { x: 0, y: 0 },
+      ref: null,
+      title: windowsTitle.snakeGame,
+      maximized: true,
+    },
   });
 
   const toggleWindow = (windowName: windows, value: boolean) => {

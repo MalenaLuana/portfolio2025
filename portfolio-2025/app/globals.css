@@ -8,3 +8,9 @@ body {
 *::after {
     box-sizing: border-box;
 }
+* {
+     scrollbar-color:#6B91A8 #BDCDD7;
+     scrollbar-width: bold;
+     scrollbar-arrow-color: #6B91A8;
+ }
+

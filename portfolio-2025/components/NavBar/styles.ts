@@ -1,7 +1,8 @@
+import { color } from "@/utils/constants";
 import { styled } from "@mui/material";
 
 export const Container = styled("nav")({
-  backgroundColor: "#8DA7B9",
+  backgroundColor: color.primary100,
   width: "100%",
   height: "10vh",
   display: "flex",

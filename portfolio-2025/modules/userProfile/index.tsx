@@ -1,34 +1,40 @@
 import React, { useEffect, useState } from "react";
-import { MainContainer } from "./styles";
-
-const texts = [
-  "Cargando datos personales...",
-  "Nombre: Malena Luana Fresco",
-  "Profesión: Front-end software developer, diseñadora, ilustradora y tatuadora. (Sí, todo eso).",
-  "Habilidades: CSS sin Bootstrap, lógica sin Stack Overflow y paciencia sin café. (A veces).",
-  "Logros: Hacer funcionar algo que 'te juro que no toqué'.",
-  "Misión: Hacer código mejor que el promedio masculino. Spoiler: ya lo hago.",
-  "Error 404: Miedo a los desafíos no encontrado.",
-];
+import { Content, Loader, LoaderBox, MainContainer } from "./styles";
+import { texts } from "@/dictionary";
 
 export const UserProfile = () => {
+  const { loadingMessages, descriptionMessages } = texts.es.userProfile;
+  const [currentMessageIndex, setCurrentMessageIndex] = useState(0);
+  const [showRealData, setShowRealData] = useState(false);
   const [displayedTexts, setDisplayedTexts] = useState<string[]>([]);
   const [currentText, setCurrentText] = useState<string>("");
   const [textIndex, setTextIndex] = useState<number>(0);
-  const typingSpeed = 50;
-  const delayBetweenTexts = 1000;
+  const typingSpeed = 40;
+  const delayBetweenTexts = 200;
 
   useEffect(() => {
-    if (textIndex < texts.length) {
+    if (currentMessageIndex < loadingMessages.length) {
+      const timeout = setTimeout(() => {
+        setCurrentMessageIndex((prev) => prev + 1);
+      }, 1500);
+      return () => clearTimeout(timeout);
+    }
+  }, [currentMessageIndex]);
+
+  useEffect(() => {
+    if (showRealData && textIndex < descriptionMessages.length) {
       let i = 0;
       const interval = setInterval(() => {
-        if (i <= texts[textIndex].length) {
-          setCurrentText(texts[textIndex].slice(0, i));
+        if (i <= descriptionMessages[textIndex].length) {
+          setCurrentText(descriptionMessages[textIndex].slice(0, i));
           i++;
         } else {
           clearInterval(interval);
           setTimeout(() => {
-            setDisplayedTexts((prev) => [...prev, texts[textIndex]]);
+            setDisplayedTexts((prev) => [
+              ...prev,
+              descriptionMessages[textIndex],
+            ]);
             setCurrentText("");
             setTextIndex((prev) => prev + 1);
           }, delayBetweenTexts);
@@ -36,14 +42,26 @@ export const UserProfile = () => {
       }, typingSpeed);
       return () => clearInterval(interval);
     }
-  }, [textIndex]);
+    setTimeout(() => {
+      setShowRealData(true);
+    }, 7000);
+  }, [showRealData, textIndex]);
 
   return (
     <MainContainer>
-      {displayedTexts.map((text, index) => (
-        <div key={index}>{text}</div>
-      ))}
-      <div>{currentText}</div>
+      {showRealData ? (
+        <Content>
+          {displayedTexts.map((text, index) => (
+            <div key={index}>{text}</div>
+          ))}
+          <div>{currentText}</div>
+        </Content>
+      ) : (
+        <LoaderBox>
+          <Loader />
+          <p>{loadingMessages[currentMessageIndex]}</p>
+        </LoaderBox>
+      )}
     </MainContainer>
   );
 };
