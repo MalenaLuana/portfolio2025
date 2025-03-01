@@ -7,6 +7,7 @@ import { useWindows } from "@/context/windowsContext";
 import { Clock } from "../Clock";
 import { Settings } from "@/modules/settings";
 import { useState } from "react";
+
 export const NavBar = () => {
   const { toggleWindow, openWindows } = useWindows();
   const [openSettings, setOpenSettings] = useState(false);

@@ -21,6 +21,8 @@ export const MainContainer = styled("div")<{
     linear-gradient(to bottom, rgba(51, 99, 67, 0.2) 1px, transparent 1px)
   `,
   backgroundSize: "30px 30px",
+  border: "solid 4px",
+  borderColor: color.dark500,
 }));
 
 export const SnakeSegment = styled("div")<{

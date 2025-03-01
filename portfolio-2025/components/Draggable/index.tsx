@@ -100,7 +100,7 @@ export const Draggable = ({
           "--translate-x": `${transform?.x ?? 0}px`,
           "--translate-y": `${transform?.y ?? 0}px`,
           width: isMaximized ? screenSize.width : size.width,
-          height: isMaximized ? screenSize.height : size.height,
+          height: isMaximized ? "90vh" : size.height,
           transform: isDragging ? CSS.Translate.toString(transform) : "none",
         } as React.CSSProperties
       }

@@ -23,6 +23,14 @@ export const texts = {
         "Autenticación exitosa. Mostrando datos...",
       ],
     },
+    settings: {
+      addBackgroundModal: {
+        title: "Carga tu imagen",
+        subtitle: "Formato JPG o PNG",
+        label: "Arrastra tu imagen o haz click aquì para subir tu archivo",
+        btnLabel: "Subir imagen",
+      },
+    },
   },
 
   [languages.inglish]: {},
