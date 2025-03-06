@@ -13,14 +13,16 @@ import { AppIcon } from "@/components/AppIcon";
 import snakeImg from "@/public/images/Snake.png";
 import folder from "@/public/images/folder.png";
 import { UserProfile } from "@/modules/userProfile";
+import { FileExplorer } from "@/modules/fileExplorer";
 
 export default function Home() {
-  const { openWindows, setWindowPosition } = useWindows();
+  const { openWindows, setWindowPosition, toggleWindow } = useWindows();
   const { wallpaperImage } = useWallpaper();
 
   const windowsComponents: Record<windows, ReactElement> = {
     [windows.user]: <UserProfile />,
     [windows.snakeGame]: <SnakeGame />,
+    [windows.fileExplorer]: <FileExplorer />,
   };
 
   return (
@@ -61,13 +63,13 @@ export default function Home() {
       </DndContext>
       <AppIcon
         image={snakeImg.src}
-        windowName={windows.snakeGame}
+        onClick={() => toggleWindow(windows.snakeGame, true)}
         label="Snake Game"
         position={{ top: "50px", right: "20px" }}
       />
       <AppIcon
         image={folder.src}
-        windowName={windows.snakeGame}
+        onClick={() => toggleWindow(windows.fileExplorer, true)}
         label="Archivos muy importantes"
         position={{ top: "200px", right: "20px" }}
       />

@@ -22,6 +22,12 @@ export const WindowsProvider = ({ children }: { children: ReactNode }) => {
       title: windowsTitle.snakeGame,
       maximized: true,
     },
+    [windows.fileExplorer]: {
+      isOpen: false,
+      position: { x: 0, y: 0 },
+      ref: null,
+      title: "",
+    },
   });
 
   const toggleWindow = (windowName: windows, value: boolean) => {

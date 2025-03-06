@@ -17,4 +17,6 @@ export enum iconName {
   maximize = "maximize",
   wind = "wind",
   sun = "sun",
+  arrowLeft = "arrow-left",
+  search = "search",
 }

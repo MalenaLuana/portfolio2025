@@ -33,7 +33,6 @@ export const Content = styled("div")(() => ({
   height: "100%",
   overflowY: "scroll",
   padding: "20px",
-  // scrollbarColor: `${color.blue700} ${color.primary300}`,
 }));
 
 // Animaciones

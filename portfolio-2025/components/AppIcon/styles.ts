@@ -7,12 +7,13 @@ export const Container = styled("div")<{
   right?: string;
   left?: string;
   bottom?: string;
-}>(({ active, top, left, right, bottom }) => ({
+  absolute?: boolean;
+}>(({ active, top, left, right, bottom, absolute }) => ({
   display: "flex",
   flexDirection: "column",
-  fontSize: 10,
+  fontSize: 12,
   transition: "transform 0.2s ease-in-out",
-  position: "absolute",
+  position: absolute ? "absolute" : "relative",
   right,
   top,
   left,
@@ -37,4 +38,7 @@ export const Icon = styled("div")(() => ({
 export const Label = styled("p")(() => ({
   textAlign: "center",
   width: "100%",
+  color: color.dark500,
+  padding: "2px",
+  backgroundColor: color.primary100,
 }));

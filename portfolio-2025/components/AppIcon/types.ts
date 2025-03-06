@@ -1,10 +1,8 @@
-import { windows } from "@/app/types";
-
 export interface IAppIcon {
-  windowName: windows;
+  onClick: () => void;
   label: string;
   image: string;
-  position: {
+  position?: {
     top?: string;
     left?: string;
     right?: string;

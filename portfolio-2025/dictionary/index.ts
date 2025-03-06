@@ -31,6 +31,10 @@ export const texts = {
         btnLabel: "Subir imagen",
       },
     },
+    fileExplorer: {
+      title: "Carpetas frecuentes (2)",
+      title2: "Archivos recientes (1)",
+    },
   },
 
   [languages.inglish]: {},

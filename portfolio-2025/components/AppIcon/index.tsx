@@ -1,25 +1,24 @@
 import Image from "next/image";
 import { Container, Icon, Label } from "./styles";
 import { IAppIcon } from "./types";
-import { useWindows } from "@/context/windowsContext";
 import { color } from "@/utils/constants";
 import { ClickAwayListener } from "@mui/material";
 import { useState } from "react";
 
-export const AppIcon = ({ label, windowName, image, position }: IAppIcon) => {
-  const { toggleWindow } = useWindows();
+export const AppIcon = ({ label, onClick, image, position }: IAppIcon) => {
   const [active, setActive] = useState(false);
-  const { top, left, right, bottom } = position;
+
   return (
     <ClickAwayListener onClickAway={() => setActive(false)}>
       <Container
         active={active}
         onClick={() => setActive(true)}
-        onDoubleClick={() => toggleWindow(windowName, true)}
-        top={top}
-        right={right}
-        bottom={bottom}
-        left={left}
+        onDoubleClick={onClick}
+        top={position?.top}
+        right={position?.right}
+        bottom={position?.bottom}
+        left={position?.left}
+        absolute={!!position}
       >
         <Icon>
           <Image
@@ -29,9 +28,7 @@ export const AppIcon = ({ label, windowName, image, position }: IAppIcon) => {
             alt={label}
           />
         </Icon>
-        <Label style={{ background: `${color.primary500}`, padding: "2px" }}>
-          {label}
-        </Label>
+        <Label>{label}</Label>
       </Container>
     </ClickAwayListener>
   );

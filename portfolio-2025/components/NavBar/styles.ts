@@ -1,7 +1,7 @@
 import { color } from "@/utils/constants";
 import { styled } from "@mui/material";
 
-export const Container = styled("nav")({
+export const Container = styled("nav")(() => ({
   backgroundColor: color.primary100,
   width: "100%",
   height: "10vh",
@@ -11,4 +11,5 @@ export const Container = styled("nav")({
   gap: "50px",
   zIndex: 3,
   position: "relative",
-});
+  boxShadow: `0px -4px 30px ${color.primary500}`,
+}));
