@@ -44,7 +44,10 @@ export const Settings = ({ open, onClose }: ISettings) => {
         </ImagesBox>
       </Box>
       <Modal open={openModal} onClose={() => setOpenModal(false)}>
-        <AddBackground setNewImage={setNewImage} />
+        <AddBackground
+          setNewImage={setNewImage}
+          onClose={() => setOpenModal(false)}
+        />
       </Modal>
     </SideBar>
   );

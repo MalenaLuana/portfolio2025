@@ -1,3 +1,4 @@
+import { Icon } from "@/components/Icon";
 import { color } from "@/utils/constants";
 import { ButtonBase, styled } from "@mui/material";
 
@@ -20,6 +21,7 @@ export const UploadBox = styled("div")({
   lineHeight: 0,
   padding: "20px",
   gap: "20px",
+  position: "relative",
 });
 
 export const DropArea = styled("div")({
@@ -47,9 +49,31 @@ export const Button = styled(ButtonBase)({
     background: color.primary300,
   },
 });
+export const ImagePreviewBox = styled("div")({
+  position: "relative",
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "center",
+  alignItems: "center",
+  border: "solid 2px",
+  background: color.primary300,
+  borderColor: color.primary500,
+  padding: "10px",
+});
 
 export const ImagePreview = styled("div")({
   position: "relative",
   width: "150px",
   height: "100px",
+  border: "solid 2px",
+  borderColor: color.blue500,
+});
+
+export const CloseIcon = styled(Icon)({
+  position: "absolute",
+  top: 0,
+  right: 0,
+  ":hover": {
+    cursor: "pointer",
+  },
 });

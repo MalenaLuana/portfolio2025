@@ -11,7 +11,9 @@ export enum AddBackgroundSteps {
 
 export interface IAddBackground {
   setNewImage: (value: string) => void;
+  onClose: () => void;
 }
 export interface IUploadImage {
   setNewImage: (value: string) => void;
+  onClose: () => void;
 }

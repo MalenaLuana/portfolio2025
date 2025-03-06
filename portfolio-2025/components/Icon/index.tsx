@@ -7,9 +7,11 @@ export function Icon({
   name,
   color = "currentColor",
   className = "",
+  onClick,
 }: IIconProps) {
   return (
     <IconStyled
+      onClick={onClick}
       name={name}
       width={width}
       height={height}

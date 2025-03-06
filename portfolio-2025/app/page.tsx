@@ -11,6 +11,7 @@ import { useWallpaper } from "@/context/wallpaperContext";
 import { SnakeGame } from "@/modules/snakeGame";
 import { AppIcon } from "@/components/AppIcon";
 import snakeImg from "@/public/images/Snake.png";
+import folder from "@/public/images/folder.png";
 import { UserProfile } from "@/modules/userProfile";
 
 export default function Home() {
@@ -62,6 +63,13 @@ export default function Home() {
         image={snakeImg.src}
         windowName={windows.snakeGame}
         label="Snake Game"
+        position={{ top: "50px", right: "20px" }}
+      />
+      <AppIcon
+        image={folder.src}
+        windowName={windows.snakeGame}
+        label="Archivos muy importantes"
+        position={{ top: "200px", right: "20px" }}
       />
       <WeatherWidget />
     </MainContainer>

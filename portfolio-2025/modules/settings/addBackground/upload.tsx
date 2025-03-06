@@ -1,16 +1,25 @@
 import { useState } from "react";
 import { IUploadImage } from "../types";
-import { Button, DropArea, ImagePreview, UploadBox } from "./styles";
+import {
+  Button,
+  CloseIcon,
+  DropArea,
+  ImagePreview,
+  ImagePreviewBox,
+  UploadBox,
+} from "./styles";
 import { texts } from "@/dictionary";
 import Image from "next/image";
+import { iconName } from "@/components/Icon/types";
+import { color } from "@/utils/constants";
 
-export const Upload = ({ setNewImage }: IUploadImage) => {
+export const Upload = ({ setNewImage, onClose }: IUploadImage) => {
   const { title, subtitle, label, btnLabel } =
     texts.es.settings.addBackgroundModal;
   const [imageToUpload, setImageToUpload] = useState<{
     name: string;
     url: string;
-  }>();
+  } | null>();
 
   const handleDrop = (event: React.DragEvent<HTMLDivElement>) => {
     event.preventDefault();
@@ -25,9 +34,17 @@ export const Upload = ({ setNewImage }: IUploadImage) => {
 
     setImageToUpload(imageFiles[0]);
   };
-
+  const handleUpload = () => {
+    imageToUpload?.url && setNewImage(imageToUpload?.url);
+    onClose();
+  };
   return (
     <UploadBox>
+      <CloseIcon
+        name={iconName.close}
+        color={color.blue700}
+        onClick={onClose}
+      />
       <div>
         <h3>{title}</h3>
         <p style={{ fontSize: 12 }}>{subtitle}</p>
@@ -37,19 +54,24 @@ export const Upload = ({ setNewImage }: IUploadImage) => {
           <p>{label}</p>
         </DropArea>
       ) : (
-        <div>
+        <ImagePreviewBox>
+          <CloseIcon
+            name={iconName.close}
+            color={color.primary500}
+            onClick={() => setImageToUpload(null)}
+          />
           <ImagePreview>
             <Image
               src={imageToUpload.url}
               alt="image to upload"
               fill
-              style={{ objectFit: "contain" }}
+              style={{ objectFit: "cover" }}
             />
           </ImagePreview>
           <p>{imageToUpload.name}</p>
-        </div>
+        </ImagePreviewBox>
       )}
-      <Button disabled={true}>
+      <Button disabled={!imageToUpload?.url.length} onClick={handleUpload}>
         <p>{btnLabel}</p>
       </Button>
     </UploadBox>

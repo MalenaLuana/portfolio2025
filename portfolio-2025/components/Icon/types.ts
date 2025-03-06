@@ -5,6 +5,7 @@ export interface IIconProps {
   color?: string;
   className?: string;
   alt?: string;
+  onClick?: () => void;
 }
 
 export enum iconName {
