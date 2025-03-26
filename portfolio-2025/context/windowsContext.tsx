@@ -14,6 +14,7 @@ export const WindowsProvider = ({ children }: { children: ReactNode }) => {
       position: { x: 0, y: 0 },
       ref: null,
       title: windowsTitle.user,
+      zIndex: 3,
     },
     [windows.snakeGame]: {
       isOpen: false,
@@ -21,12 +22,14 @@ export const WindowsProvider = ({ children }: { children: ReactNode }) => {
       ref: null,
       title: windowsTitle.snakeGame,
       maximized: true,
+      zIndex: 4,
     },
     [windows.fileExplorer]: {
       isOpen: false,
       position: { x: 0, y: 0 },
       ref: null,
       title: "",
+      zIndex: 5,
     },
   });
 
@@ -39,6 +42,7 @@ export const WindowsProvider = ({ children }: { children: ReactNode }) => {
         title: prev[windowName]?.title || "",
       },
     }));
+    if (value) bringWindowToFront(windowName);
   };
 
   const setWindowPosition = (windowName: windows, x: number, y: number) => {
@@ -51,6 +55,7 @@ export const WindowsProvider = ({ children }: { children: ReactNode }) => {
       },
     }));
   };
+
   const setWindowRef = (windowName: windows, ref: HTMLElement | null) => {
     setOpenWindows((prev) => ({
       ...prev,
@@ -62,6 +67,7 @@ export const WindowsProvider = ({ children }: { children: ReactNode }) => {
       },
     }));
   };
+
   const toggleMaximized = (windowName: windows, value: boolean) => {
     setOpenWindows((prev) => ({
       ...prev,
@@ -74,6 +80,20 @@ export const WindowsProvider = ({ children }: { children: ReactNode }) => {
     }));
   };
 
+  const bringWindowToFront = (windowName: windows) => {
+    const highestZIndex = Math.max(
+      ...Object.values(openWindows).map((w) => w?.zIndex ?? 0),
+      0
+    );
+    setOpenWindows((prev) => ({
+      ...prev,
+      [windowName]: {
+        ...prev[windowName],
+        zIndex: highestZIndex + 1, // Asigna el zIndex más alto a la ventana
+      },
+    }));
+  };
+
   return (
     <WindowsContext.Provider
       value={{
@@ -82,6 +102,7 @@ export const WindowsProvider = ({ children }: { children: ReactNode }) => {
         setWindowPosition,
         setWindowRef,
         toggleMaximized,
+        bringWindowToFront,
       }}
     >
       {children}

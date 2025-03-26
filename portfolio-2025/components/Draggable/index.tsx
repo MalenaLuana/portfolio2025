@@ -30,8 +30,13 @@ export const Draggable = ({
   const [screenSize, setScreenSize] = useState({ width: 0, height: 0 });
   const [size, setSize] = useState({ width: 500, height: 400 });
   const [isResizing, setIsResizing] = useState(false);
-  const { toggleWindow, setWindowPosition, openWindows, toggleMaximized } =
-    useWindows();
+  const {
+    toggleWindow,
+    setWindowPosition,
+    openWindows,
+    toggleMaximized,
+    bringWindowToFront,
+  } = useWindows();
 
   const isMaximized = Boolean(openWindows[windowKey]?.maximized);
   const disabledResize = windowKey === windows.snakeGame;
@@ -89,6 +94,9 @@ export const Draggable = ({
 
   return (
     <Container
+      index={openWindows[windowKey]?.zIndex ?? 3}
+      onClickCapture={() => bringWindowToFront(windowKey)}
+      onDragEnter={() => bringWindowToFront(windowKey)}
       maximized={isMaximized}
       ref={setNodeRef}
       style={
@@ -119,12 +127,13 @@ export const Draggable = ({
         <ButtonContainer>
           <ActionButton
             onPointerDown={(e) => e.stopPropagation()}
-            onClick={() =>
+            onClick={() => {
+              bringWindowToFront(windowKey);
               toggleMaximized(
                 windowKey,
                 !Boolean(openWindows[windowKey]?.maximized)
-              )
-            }
+              );
+            }}
             icon={iconName.maximize}
           />
           <ActionButton

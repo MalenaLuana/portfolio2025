@@ -6,6 +6,7 @@ export interface WindowData {
   ref?: HTMLElement | null;
   title: string;
   maximized?: boolean;
+  zIndex: number;
 }
 
 export interface WindowsContextType {
@@ -14,6 +15,7 @@ export interface WindowsContextType {
   setWindowPosition: (windowName: windows, x: number, y: number) => void;
   setWindowRef: (windowName: windows, element: HTMLElement | null) => void;
   toggleMaximized: (windowName: windows, value: boolean) => void;
+  bringWindowToFront: (windowName: windows) => void;
 }
 
 export const windowsTitle = {

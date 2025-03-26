@@ -4,12 +4,13 @@ import { Button } from "../Button";
 
 export const Container = styled("div")<{
   maximized: boolean;
-}>(({ maximized }) => ({
+  index: number;
+}>(({ maximized, index }) => ({
   width: maximized ? "100%" : "auto",
   height: maximized ? "90vh" : "auto",
   overflow: "hidden",
   boxShadow: "4px 4px 6px",
-  zIndex: 3,
+  zIndex: index,
   position: "relative",
 }));
 
