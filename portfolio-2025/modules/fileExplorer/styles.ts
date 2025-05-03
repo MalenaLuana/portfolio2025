@@ -46,7 +46,23 @@ export const FileBox = styled("div")(() => ({
   gap: "30px",
 }));
 
-export const SearchBar = styled(Input)(() => ({
-  background: color.primary100,
-  borderRadius: "20px",
+export const SearchBar = styled(TextField)(() => ({
+  "& .MuiOutlinedInput-root": {
+    background: color.primary100,
+    borderRadius: "6px",
+    padding: "10px",
+    borderColor: color.primary700,
+    "&:hover fieldset": {
+      borderColor: color.primary500,
+      borderWidth: "2px",
+    },
+    "&.Mui-focused fieldset": {
+      borderColor: color.primary700,
+      borderWidth: "2px",
+    },
+
+    input: {
+      padding: 0,
+    },
+  },
 }));

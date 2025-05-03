@@ -15,7 +15,7 @@ export const Settings = ({ open, onClose }: ISettings) => {
   const { setWallpaperImage } = useWallpaper();
   const [openModal, setOpenModal] = useState(false);
   const [newImage, setNewImage] = useState<string>();
-  const wallpapers = [defaultImg.src, image1.src, image2.src, image3.src];
+  const wallpapers = [defaultImg.src, image2.src, image3.src];
   return (
     <SideBar open={open} onClose={onClose} anchor={"right"}>
       <p>Fondo de pantalla</p>

@@ -8,6 +8,7 @@ import {
   ButtonContainer,
   Container,
   Content,
+  ResizePreview,
   TopHandler,
 } from "./styles";
 import { CSS } from "@dnd-kit/utilities";
@@ -30,6 +31,7 @@ export const Draggable = ({
   const [screenSize, setScreenSize] = useState({ width: 0, height: 0 });
   const [size, setSize] = useState({ width: 500, height: 400 });
   const [isResizing, setIsResizing] = useState(false);
+  const [renderMaximizedPreview, setRenderMaximizedPreview] = useState(false);
   const {
     toggleWindow,
     setWindowPosition,
@@ -42,6 +44,7 @@ export const Draggable = ({
   const disabledResize = windowKey === windows.snakeGame;
 
   const handleMouseMove = (e: MouseEvent) => {
+    console.log("move");
     if (isResizing) {
       const newWidth =
         e.clientX - (node.current?.getBoundingClientRect().left ?? 0);
@@ -53,6 +56,7 @@ export const Draggable = ({
       }));
     }
   };
+
   const handleMouseUp = () => {
     setIsResizing(false);
     document.removeEventListener("mousemove", handleMouseMove);
@@ -78,7 +82,6 @@ export const Draggable = ({
       });
     };
     updateSize();
-
     return () => window.removeEventListener("resize", updateSize);
   }, []);
 
@@ -90,74 +93,88 @@ export const Draggable = ({
     }
   }, [screenSize.width]);
 
+  useEffect(() => {
+    if (top && top <= 50) {
+      toggleMaximized(windowKey, true);
+    }
+  }, [top]);
+
   const renderBorders = !isMaximized && !disabledResize;
 
   return (
-    <Container
-      index={openWindows[windowKey]?.zIndex ?? 3}
-      onClickCapture={() => bringWindowToFront(windowKey)}
-      onDragEnter={() => bringWindowToFront(windowKey)}
-      maximized={isMaximized}
-      ref={setNodeRef}
-      style={
-        {
-          ...style,
-          position: "absolute",
-          top: isMaximized ? 0 : top,
-          left: isMaximized ? 0 : left,
-          "--translate-x": `${transform?.x ?? 0}px`,
-          "--translate-y": `${transform?.y ?? 0}px`,
-          width: isMaximized ? screenSize.width : size.width,
-          height: isMaximized ? "90vh" : size.height,
-          transform: isDragging ? CSS.Translate.toString(transform) : "none",
-        } as React.CSSProperties
-      }
-    >
-      <TopHandler
-        {...listeners}
-        {...attributes}
-        onDoubleClick={() =>
-          toggleMaximized(
-            windowKey,
-            !Boolean(openWindows[windowKey]?.maximized)
-          )
+    <>
+      <Container
+        index={openWindows[windowKey]?.zIndex ?? 3}
+        onClickCapture={() => bringWindowToFront(windowKey)}
+        onDragEnter={() => bringWindowToFront(windowKey)}
+        maximized={isMaximized}
+        ref={setNodeRef}
+        style={
+          {
+            ...style,
+            position: "absolute",
+            top: isMaximized ? 0 : top,
+            left: isMaximized ? 0 : left,
+            "--translate-x": `${transform?.x ?? 0}px`,
+            "--translate-y": `${transform?.y ?? 0}px`,
+            width: isMaximized ? screenSize.width : size.width,
+            height: isMaximized ? "90vh" : size.height,
+            transform: isDragging ? CSS.Translate.toString(transform) : "none",
+          } as React.CSSProperties
         }
       >
-        <p>{openWindows[windowKey]?.title}</p>
-        <ButtonContainer>
-          <ActionButton
-            onPointerDown={(e) => e.stopPropagation()}
-            onClick={() => {
-              bringWindowToFront(windowKey);
-              toggleMaximized(
-                windowKey,
-                !Boolean(openWindows[windowKey]?.maximized)
-              );
-            }}
-            icon={iconName.maximize}
-          />
-          <ActionButton
-            onPointerDown={(e) => e.stopPropagation()}
-            onClick={() => toggleWindow(windowKey, false)}
-            icon={iconName.close}
-          />
-        </ButtonContainer>
-      </TopHandler>
-      <Content>{children}</Content>
-      {renderBorders ? (
-        <BorderRight
-          onMouseDown={(e) =>
-            handleMouseDownResize(e, resizeDirection.horizontal, size, setSize)
+        <TopHandler
+          {...listeners}
+          {...attributes}
+          onDoubleClick={() =>
+            toggleMaximized(
+              windowKey,
+              !Boolean(openWindows[windowKey]?.maximized)
+            )
           }
-        />
-      ) : null}
-      {renderBorders ? (
-        <BorderBottom
-          onMouseDown={(e) =>
-            handleMouseDownResize(e, resizeDirection.vertical, size, setSize)
-          }
-        />
-      ) : null}
-    </Container>
+        >
+          <p>{openWindows[windowKey]?.title}</p>
+          <ButtonContainer>
+            <ActionButton
+              onPointerDown={(e) => e.stopPropagation()}
+              onClick={() => {
+                bringWindowToFront(windowKey);
+                toggleMaximized(
+                  windowKey,
+                  !Boolean(openWindows[windowKey]?.maximized)
+                );
+              }}
+              icon={iconName.maximize}
+            />
+            <ActionButton
+              onPointerDown={(e) => e.stopPropagation()}
+              onClick={() => toggleWindow(windowKey, false)}
+              icon={iconName.close}
+            />
+          </ButtonContainer>
+        </TopHandler>
+        <Content>{children}</Content>
+        {renderBorders ? (
+          <BorderRight
+            onMouseDown={(e) =>
+              handleMouseDownResize(
+                e,
+                resizeDirection.horizontal,
+                size,
+                setSize
+              )
+            }
+          />
+        ) : null}
+        {renderBorders ? (
+          <BorderBottom
+            onMouseDown={(e) =>
+              handleMouseDownResize(e, resizeDirection.vertical, size, setSize)
+            }
+          />
+        ) : null}
+      </Container>
+      {renderMaximizedPreview && <ResizePreview />}
+    </>
   );
 };

@@ -12,6 +12,9 @@ export const Container = styled("div")<{
   boxShadow: "4px 4px 6px",
   zIndex: index,
   position: "relative",
+  borderRadius: "10px",
+  background: color.primary100,
+  padding: "2px",
 }));
 
 export const TopHandler = styled("div")(() => ({
@@ -22,10 +25,10 @@ export const TopHandler = styled("div")(() => ({
   width: "100%",
   display: "flex",
   justifyContent: "space-between",
-  padding: "5px 10px",
+  padding: "5px 5px",
   fontSize: 10,
-  height: "5vh",
   fontWeight: "bold",
+  borderRadius: "10px",
 }));
 
 export const Content = styled("div")(() => ({
@@ -35,6 +38,8 @@ export const Content = styled("div")(() => ({
   border: "solid 3px",
   borderColor: color.primary100,
   paddingBottom: "50px",
+  borderRadius: "10px",
+  overflow: "hidden",
 }));
 
 export const ButtonContainer = styled("div")(() => ({
@@ -43,15 +48,17 @@ export const ButtonContainer = styled("div")(() => ({
 }));
 
 export const ActionButton = styled(Button)(() => ({
-  border: "solid 1px",
-  background: color.primary100,
-  boxShadow: `2px 2px 0px ${color.primary700} `,
+  border: "none",
+  background: color.primary300,
+  boxShadow: "none",
   padding: 0,
   minWidth: "40px",
+  minHeight: "30px",
+  borderRadius: "6px",
   ":hover": {
-    background: color.primary300,
+    background: color.primary500,
     transform: "none",
-    boxShadow: `2px 2px 0px ${color.primary700} `,
+    boxShadow: "none",
   },
 }));
 
@@ -78,4 +85,18 @@ export const BorderBottom = styled("div")(() => ({
   ":hover": {
     cursor: "s-resize",
   },
+}));
+
+export const ResizePreview = styled("div")<{}>(() => ({
+  width: "99%",
+  height: "89vh",
+  position: "absolute",
+  border: "solid 2px",
+  left: "50%",
+  top: "50%",
+  transform: " translate(-50%, -50%)",
+  borderRadius: "10px",
+  zIndex: 2,
+  background: `${color.primary100}80`,
+  borderColor: color.primary300,
 }));

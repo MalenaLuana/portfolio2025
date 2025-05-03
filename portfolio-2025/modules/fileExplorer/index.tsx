@@ -23,6 +23,7 @@ export const FileExplorer = () => {
     { image: folderImg, label: "Currículum", goTo: "" },
     { image: folderImg, label: "Nudes", goTo: "" },
   ];
+
   return (
     <MainContainer>
       <Header>
@@ -36,7 +37,16 @@ export const FileExplorer = () => {
             />
           </IconButton>
         </ActionButtons>
-        <SearchBar endAdornment={<Icon name={iconName.search} color="red" />} />
+        <SearchBar
+          onChange={() => {}}
+          slotProps={{
+            input: {
+              endAdornment: (
+                <Icon name={iconName.search} color={color.primary700} />
+              ),
+            },
+          }}
+        />
       </Header>
       <Content>
         <p>- {title}</p>

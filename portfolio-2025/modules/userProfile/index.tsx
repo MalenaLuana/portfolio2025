@@ -1,14 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { Content, Loader, LoaderBox, MainContainer } from "./styles";
 import { texts } from "@/dictionary";
+import { useWindows } from "@/context/windowsContext";
+import { windows } from "@/app/types";
 
 export const UserProfile = () => {
   const { loadingMessages, descriptionMessages } = texts.es.userProfile;
+  const { toggleMaximized } = useWindows();
   const [currentMessageIndex, setCurrentMessageIndex] = useState(0);
   const [showRealData, setShowRealData] = useState(false);
   const [displayedTexts, setDisplayedTexts] = useState<string[]>([]);
   const [currentText, setCurrentText] = useState<string>("");
   const [textIndex, setTextIndex] = useState<number>(0);
+
   const typingSpeed = 40;
   const delayBetweenTexts = 200;
 
@@ -43,6 +47,7 @@ export const UserProfile = () => {
       return () => clearInterval(interval);
     }
     setTimeout(() => {
+      // toggleMaximized(windows.user, true);
       setShowRealData(true);
     }, 7000);
   }, [showRealData, textIndex]);
