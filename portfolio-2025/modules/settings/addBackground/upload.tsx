@@ -34,6 +34,7 @@ export const Upload = ({ setNewImage, onClose }: IUploadImage) => {
 
     setImageToUpload(imageFiles[0]);
   };
+
   const handleUpload = () => {
     imageToUpload?.url && setNewImage(imageToUpload?.url);
     onClose();

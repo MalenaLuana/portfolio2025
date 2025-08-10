@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Content, Loader, LoaderBox, MainContainer } from "./styles";
 import { texts } from "@/dictionary";
-import { useWindows } from "@/context/windowsContext";
-import { windows } from "@/app/types";
 
 export const UserProfile = () => {
   const { loadingMessages, descriptionMessages } = texts.es.userProfile;
-  const { toggleMaximized } = useWindows();
+
   const [currentMessageIndex, setCurrentMessageIndex] = useState(0);
   const [showRealData, setShowRealData] = useState(false);
   const [displayedTexts, setDisplayedTexts] = useState<string[]>([]);

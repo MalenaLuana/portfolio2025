@@ -30,8 +30,8 @@ export const Draggable = ({
     });
   const [screenSize, setScreenSize] = useState({ width: 0, height: 0 });
   const [size, setSize] = useState({ width: 500, height: 400 });
-  const [isResizing, setIsResizing] = useState(false);
   const [renderMaximizedPreview, setRenderMaximizedPreview] = useState(false);
+
   const {
     toggleWindow,
     setWindowPosition,
@@ -42,37 +42,6 @@ export const Draggable = ({
 
   const isMaximized = Boolean(openWindows[windowKey]?.maximized);
   const disabledResize = windowKey === windows.snakeGame;
-
-  const handleMouseMove = (e: MouseEvent) => {
-    console.log("move");
-    if (isResizing) {
-      const newWidth =
-        e.clientX - (node.current?.getBoundingClientRect().left ?? 0);
-      const newHeight =
-        e.clientY - (node.current?.getBoundingClientRect().top ?? 0);
-      setSize(() => ({
-        width: Math.max(newWidth, 300),
-        height: Math.max(newHeight, 300),
-      }));
-    }
-  };
-
-  const handleMouseUp = () => {
-    setIsResizing(false);
-    document.removeEventListener("mousemove", handleMouseMove);
-    document.removeEventListener("mouseup", handleMouseUp);
-  };
-
-  useEffect(() => {
-    if (isResizing) {
-      document.addEventListener("mousemove", handleMouseMove);
-      document.addEventListener("mouseup", handleMouseUp);
-    }
-    return () => {
-      document.removeEventListener("mousemove", handleMouseMove);
-      document.removeEventListener("mouseup", handleMouseUp);
-    };
-  }, [isResizing]);
 
   useEffect(() => {
     const updateSize = () => {
@@ -94,11 +63,22 @@ export const Draggable = ({
   }, [screenSize.width]);
 
   useEffect(() => {
-    if (top && top <= 50) {
+    if (top && top <= 20) {
       toggleMaximized(windowKey, true);
     }
   }, [top]);
-
+  useEffect(() => {
+    if (isDragging && transform?.y !== undefined) {
+      const offsetY = transform.y + (top ?? 0);
+      if (offsetY <= 20) {
+        setRenderMaximizedPreview(true);
+      } else {
+        setRenderMaximizedPreview(false);
+      }
+    } else {
+      setRenderMaximizedPreview(false);
+    }
+  }, [transform?.y, isDragging, top]);
   const renderBorders = !isMaximized && !disabledResize;
 
   return (

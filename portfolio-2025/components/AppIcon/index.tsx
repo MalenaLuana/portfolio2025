@@ -1,7 +1,6 @@
 import Image from "next/image";
 import { Container, Icon, Label } from "./styles";
 import { IAppIcon } from "./types";
-import { color } from "@/utils/constants";
 import { ClickAwayListener } from "@mui/material";
 import { useState } from "react";
 
@@ -19,6 +18,7 @@ export const AppIcon = ({ label, onClick, image, position }: IAppIcon) => {
         bottom={position?.bottom}
         left={position?.left}
         absolute={!!position}
+        onContextMenu={(e) => e.preventDefault()}
       >
         <Icon>
           <Image

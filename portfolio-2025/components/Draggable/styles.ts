@@ -1,6 +1,17 @@
 import { color } from "@/utils/constants";
-import { styled } from "@mui/material";
+import { styled, keyframes } from "@mui/material";
 import { Button } from "../Button";
+
+const previewAnimation = keyframes`
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.2);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+`;
 
 export const Container = styled("div")<{
   maximized: boolean;
@@ -12,7 +23,7 @@ export const Container = styled("div")<{
   boxShadow: "4px 4px 6px",
   zIndex: index,
   position: "relative",
-  borderRadius: "10px",
+  borderRadius: maximized ? 0 : "10px",
   background: color.primary100,
   padding: "2px",
 }));
@@ -87,16 +98,18 @@ export const BorderBottom = styled("div")(() => ({
   },
 }));
 
-export const ResizePreview = styled("div")<{}>(() => ({
+export const ResizePreview = styled("div")(() => ({
   width: "99%",
   height: "89vh",
   position: "absolute",
   border: "solid 2px",
   left: "50%",
   top: "50%",
-  transform: " translate(-50%, -50%)",
+  transform: "translate(-50%, -50%)",
   borderRadius: "10px",
   zIndex: 2,
-  background: `${color.primary100}80`,
-  borderColor: color.primary300,
+  background: `${color.primary300}95`,
+  borderColor: color.primary500,
+  pointerEvents: "none",
+  animation: `${previewAnimation} 0.3s cubic-bezier(0.3, 1.4, 0.5, 1) forwards`,
 }));

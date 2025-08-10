@@ -67,12 +67,12 @@ export default function Home() {
         label="Snake Game"
         position={{ top: "50px", right: "20px" }}
       />
-      <AppIcon
+      {/* <AppIcon
         image={folder.src}
         onClick={() => toggleWindow(windows.fileExplorer, true)}
         label="Archivos muy importantes"
         position={{ top: "200px", right: "20px" }}
-      />
+      /> */}
       <WeatherWidget />
     </MainContainer>
   );
