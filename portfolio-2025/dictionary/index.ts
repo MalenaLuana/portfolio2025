@@ -33,6 +33,9 @@ export const texts = {
       title: "Carpetas frecuentes (2)",
       title2: "Archivos recientes (1)",
     },
+    wellcomeAlert: {
+      title: "¡Bienvenidx! Gracias por pasar. Podés explorar libremente este portfolio — cada botón te muestra algo distinto, así que sentite con confianza de ir  descubriendo todo lo que hay.",
+    },
   },
 
   [languages.inglish]: {},

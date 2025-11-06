@@ -13,6 +13,18 @@ const previewAnimation = keyframes`
   }
 `;
 
+const popIn = keyframes`
+  0% { opacity: 0; }
+  60% { opacity: 1; }
+  100% { opacity: 1; }
+`;
+
+const contentPopIn = keyframes`
+  0% { opacity: 0; transform: scale(0.9); }
+  60% { opacity: 1; transform: scale(1.02); }
+  100% { opacity: 1; transform: scale(1); }
+`;
+
 export const Container = styled("div")<{
   maximized: boolean;
   index: number;
@@ -26,6 +38,9 @@ export const Container = styled("div")<{
   borderRadius: maximized ? 0 : "10px",
   background: color.primary100,
   padding: "2px",
+  opacity: 0,
+  animation: `${popIn} 300ms ease-out forwards`,
+  willChange: "opacity",
 }));
 
 export const TopHandler = styled("div")(() => ({
@@ -40,6 +55,9 @@ export const TopHandler = styled("div")(() => ({
   fontSize: 10,
   fontWeight: "bold",
   borderRadius: "10px",
+  "&:hover": {
+    cursor: "move",
+  },
 }));
 
 export const Content = styled("div")(() => ({
@@ -51,6 +69,10 @@ export const Content = styled("div")(() => ({
   paddingBottom: "50px",
   borderRadius: "10px",
   overflow: "hidden",
+  opacity: 0,
+  transformOrigin: "center",
+  animation: `${contentPopIn} 200ms ease-out forwards`,
+  willChange: "transform, opacity",
 }));
 
 export const ButtonContainer = styled("div")(() => ({

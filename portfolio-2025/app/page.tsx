@@ -14,11 +14,13 @@ import snakeImg from "@/public/images/Snake.png";
 import folder from "@/public/images/folder.png";
 import { UserProfile } from "@/modules/userProfile";
 import { FileExplorer } from "@/modules/fileExplorer";
+import { WellcomeAlert } from "@/components/wellcomeAlert";
+import { useState } from "react";
 
 export default function Home() {
   const { openWindows, setWindowPosition, toggleWindow } = useWindows();
   const { wallpaperImage } = useWallpaper();
-
+  const [showAlert, setShowAlert] = useState(true);
   const windowsComponents: Record<windows, ReactElement> = {
     [windows.user]: <UserProfile />,
     [windows.snakeGame]: <SnakeGame />,
@@ -67,13 +69,14 @@ export default function Home() {
         label="Snake Game"
         position={{ top: "50px", right: "20px" }}
       />
-      {/* <AppIcon
+      <AppIcon
         image={folder.src}
         onClick={() => toggleWindow(windows.fileExplorer, true)}
         label="Archivos muy importantes"
         position={{ top: "200px", right: "20px" }}
-      /> */}
+      />
       <WeatherWidget />
+      {showAlert ? <WellcomeAlert onClose={() => setShowAlert(false)} /> : null}
     </MainContainer>
   );
 }

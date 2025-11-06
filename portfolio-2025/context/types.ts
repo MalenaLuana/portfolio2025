@@ -6,7 +6,9 @@ export interface WindowData {
   ref?: HTMLElement | null;
   title: string;
   maximized?: boolean;
+  snapped?: 'left' | 'right' | null;
   zIndex: number;
+  initialSize: { width: number; height: number };
 }
 
 export interface WindowsContextType {
@@ -15,7 +17,9 @@ export interface WindowsContextType {
   setWindowPosition: (windowName: windows, x: number, y: number) => void;
   setWindowRef: (windowName: windows, element: HTMLElement | null) => void;
   toggleMaximized: (windowName: windows, value: boolean) => void;
+  toggleSnapped: (windowName: windows, value: 'left' | 'right' | null) => void;
   bringWindowToFront: (windowName: windows) => void;
+  setWindowSize: (windowName: windows, width: number, height: number) => void;
 }
 
 export const windowsTitle = {

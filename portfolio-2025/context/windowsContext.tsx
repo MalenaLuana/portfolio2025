@@ -15,14 +15,16 @@ export const WindowsProvider = ({ children }: { children: ReactNode }) => {
       ref: null,
       title: windowsTitle.user,
       zIndex: 3,
+      initialSize: { width: 1000, height: 400 },
     },
     [windows.snakeGame]: {
       isOpen: false,
       position: { x: 0, y: 0 },
       ref: null,
       title: windowsTitle.snakeGame,
-      maximized: true,
+      maximized: false,
       zIndex: 4,
+      initialSize: { width: 600, height: 600 },
     },
     [windows.fileExplorer]: {
       isOpen: false,
@@ -30,6 +32,7 @@ export const WindowsProvider = ({ children }: { children: ReactNode }) => {
       ref: null,
       title: "",
       zIndex: 5,
+      initialSize: { width: 800, height: 600 },
     },
   });
 
@@ -37,9 +40,8 @@ export const WindowsProvider = ({ children }: { children: ReactNode }) => {
     setOpenWindows((prev) => ({
       ...prev,
       [windowName]: {
+        ...prev[windowName]!,
         isOpen: value,
-        position: prev[windowName]?.position || { x: 0, y: 0 },
-        title: prev[windowName]?.title || "",
       },
     }));
     if (value) bringWindowToFront(windowName);
@@ -49,9 +51,8 @@ export const WindowsProvider = ({ children }: { children: ReactNode }) => {
     setOpenWindows((prev) => ({
       ...prev,
       [windowName]: {
-        isOpen: prev[windowName]?.isOpen ?? false,
+        ...prev[windowName]!,
         position: { x, y },
-        title: prev[windowName]?.title || "",
       },
     }));
   };
@@ -60,10 +61,8 @@ export const WindowsProvider = ({ children }: { children: ReactNode }) => {
     setOpenWindows((prev) => ({
       ...prev,
       [windowName]: {
-        isOpen: prev[windowName]?.isOpen ?? false,
-        position: prev[windowName]?.position ?? { x: 0, y: 0 },
+        ...prev[windowName]!,
         ref,
-        title: prev[windowName]?.title || "",
       },
     }));
   };
@@ -72,10 +71,8 @@ export const WindowsProvider = ({ children }: { children: ReactNode }) => {
     setOpenWindows((prev) => ({
       ...prev,
       [windowName]: {
-        isOpen: prev[windowName]?.isOpen ?? false,
-        position: prev[windowName]?.position ?? { x: 0, y: 0 },
+        ...prev[windowName]!,
         maximized: value,
-        title: prev[windowName]?.title || "",
       },
     }));
   };
@@ -94,6 +91,26 @@ export const WindowsProvider = ({ children }: { children: ReactNode }) => {
     }));
   };
 
+  const setWindowSize = (windowName: windows, width: number, height: number) => {
+    setOpenWindows((prev) => ({
+      ...prev,
+      [windowName]: {
+        ...prev[windowName],
+        initialSize: { width, height },
+      },
+    }));
+  };
+
+  const toggleSnapped = (windowName: windows, value: 'left' | 'right' | null) => {
+    setOpenWindows((prev) => ({
+      ...prev,
+      [windowName]: {
+        ...prev[windowName]!,
+        snapped: value,
+      },
+    }));
+  };
+
   return (
     <WindowsContext.Provider
       value={{
@@ -102,7 +119,9 @@ export const WindowsProvider = ({ children }: { children: ReactNode }) => {
         setWindowPosition,
         setWindowRef,
         toggleMaximized,
+        toggleSnapped,
         bringWindowToFront,
+        setWindowSize
       }}
     >
       {children}

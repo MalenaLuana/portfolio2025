@@ -18,3 +18,12 @@ export enum resizeDirection {
 }
 
 export type windowSize = { width: number; height: number };
+
+export interface IWindowStyleParams {
+  isMaximized: boolean;
+  snappedState: 'left' | 'right' | null | undefined;
+  screenSize: { width: number; height: number };
+  top?: number;
+  left?: number;
+  size: { width: number; height: number };
+}

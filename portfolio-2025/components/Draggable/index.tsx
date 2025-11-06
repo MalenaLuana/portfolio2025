@@ -16,6 +16,7 @@ import { useWindows } from "@/context/windowsContext";
 import { iconName } from "../Icon/types";
 import { handleMouseDownResize } from "./handlers";
 import { windows } from "@/app/types";
+import { getWindowTop, getWindowLeft, getWindowWidth, getWindowHeight } from "./windowHelpers";
 
 export const Draggable = ({
   children,
@@ -29,18 +30,21 @@ export const Draggable = ({
       id: windowKey,
     });
   const [screenSize, setScreenSize] = useState({ width: 0, height: 0 });
-  const [size, setSize] = useState({ width: 500, height: 400 });
   const [renderMaximizedPreview, setRenderMaximizedPreview] = useState(false);
+  const [wasDrawing, setWasDrawing] = useState(false);
 
   const {
     toggleWindow,
     setWindowPosition,
     openWindows,
     toggleMaximized,
+    toggleSnapped,
     bringWindowToFront,
   } = useWindows();
+  const [size, setSize] = useState(openWindows[windowKey]?.initialSize || { width: 500, height: 400 });
 
   const isMaximized = Boolean(openWindows[windowKey]?.maximized);
+  const snappedState = openWindows[windowKey]?.snapped;
   const disabledResize = windowKey === windows.snakeGame;
 
   useEffect(() => {
@@ -62,11 +66,30 @@ export const Draggable = ({
     }
   }, [screenSize.width]);
 
+
   useEffect(() => {
-    if (top && top <= 20) {
-      toggleMaximized(windowKey, true);
+    if (wasDrawing && !isDragging) {
+      const finalY = (transform?.y ?? 0) + (top ?? 0);
+      const finalX = (transform?.x ?? 0) + (left ?? 0);
+      const windowWidth = node.current?.offsetWidth || size.width;
+      const finalRight = screenSize.width - (finalX + windowWidth);
+
+      if (finalY <= 10) {
+        toggleMaximized(windowKey, true);
+        toggleSnapped(windowKey, null);
+      }
+      else if (finalX <= 40) {
+        toggleSnapped(windowKey, 'left');
+        toggleMaximized(windowKey, false);
+      }
+      else if (finalRight <= 40) {
+        toggleSnapped(windowKey, 'right');
+        toggleMaximized(windowKey, false);
+      }
     }
-  }, [top]);
+    setWasDrawing(isDragging);
+  }, [isDragging, transform, top, left, screenSize, size]);
+
   useEffect(() => {
     if (isDragging && transform?.y !== undefined) {
       const offsetY = transform.y + (top ?? 0);
@@ -75,11 +98,24 @@ export const Draggable = ({
       } else {
         setRenderMaximizedPreview(false);
       }
+      if (isMaximized && transform.y > 20) {
+        toggleMaximized(windowKey, false);
+        const centerX = (screenSize.width - size.width) / 2;
+        setWindowPosition(windowKey, centerX, offsetY);
+      }
+      if (snappedState && Math.abs(transform.x) > 20) {
+        toggleSnapped(windowKey, null);
+        const centerX = (screenSize.width - size.width) / 2;
+        setWindowPosition(windowKey, centerX, top ?? 0);
+      }
     } else {
       setRenderMaximizedPreview(false);
     }
-  }, [transform?.y, isDragging, top]);
-  const renderBorders = !isMaximized && !disabledResize;
+  }, [transform?.y, transform?.x, isDragging, top, isMaximized, snappedState, screenSize, size]);
+
+  const renderBorders = !isMaximized && !snappedState && !disabledResize;
+
+  const styleParams = { isMaximized, snappedState, screenSize, top, left, size };
 
   return (
     <>
@@ -93,12 +129,12 @@ export const Draggable = ({
           {
             ...style,
             position: "absolute",
-            top: isMaximized ? 0 : top,
-            left: isMaximized ? 0 : left,
+            top: getWindowTop(styleParams),
+            left: getWindowLeft(styleParams),
             "--translate-x": `${transform?.x ?? 0}px`,
             "--translate-y": `${transform?.y ?? 0}px`,
-            width: isMaximized ? screenSize.width : size.width,
-            height: isMaximized ? "90vh" : size.height,
+            width: getWindowWidth(styleParams),
+            height: getWindowHeight(styleParams),
             transform: isDragging ? CSS.Translate.toString(transform) : "none",
           } as React.CSSProperties
         }
