@@ -36,15 +36,29 @@ export const WindowsProvider = ({ children }: { children: ReactNode }) => {
     },
   });
 
-  const toggleWindow = (windowName: windows, value: boolean) => {
-    setOpenWindows((prev) => ({
-      ...prev,
-      [windowName]: {
-        ...prev[windowName]!,
-        isOpen: value,
-      },
-    }));
-    if (value) bringWindowToFront(windowName);
+  const toggleWindow = (windowName: windows, value: boolean, toggleAll?: boolean) => {
+    if (toggleAll) {
+      setOpenWindows((prev) => {
+        const updated = { ...prev };
+        Object.keys(prev).forEach((key) => {
+          updated[key as windows] = {
+            ...prev[key as windows]!,
+            isOpen: value,
+          };
+        });
+        return updated;
+      });
+      if (value) bringWindowToFront(windowName);
+    } else {
+      setOpenWindows((prev) => ({
+        ...prev,
+        [windowName]: {
+          ...prev[windowName]!,
+          isOpen: value,
+        },
+      }));
+      if (value) bringWindowToFront(windowName);
+    }
   };
 
   const setWindowPosition = (windowName: windows, x: number, y: number) => {
@@ -86,7 +100,7 @@ export const WindowsProvider = ({ children }: { children: ReactNode }) => {
       ...prev,
       [windowName]: {
         ...prev[windowName],
-        zIndex: highestZIndex + 1, // Asigna el zIndex más alto a la ventana
+        zIndex: highestZIndex + 1,
       },
     }));
   };
@@ -110,6 +124,7 @@ export const WindowsProvider = ({ children }: { children: ReactNode }) => {
       },
     }));
   };
+
 
   return (
     <WindowsContext.Provider

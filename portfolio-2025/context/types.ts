@@ -13,7 +13,7 @@ export interface WindowData {
 
 export interface WindowsContextType {
   openWindows: { [key in windows]?: WindowData };
-  toggleWindow: (windowName: windows, value: boolean) => void;
+  toggleWindow: (windowName: windows, value: boolean, toggleAll?: boolean) => void;
   setWindowPosition: (windowName: windows, x: number, y: number) => void;
   setWindowRef: (windowName: windows, element: HTMLElement | null) => void;
   toggleMaximized: (windowName: windows, value: boolean) => void;

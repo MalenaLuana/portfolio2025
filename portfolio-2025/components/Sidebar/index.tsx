@@ -8,7 +8,6 @@ export const Sidebar = ({ items, logo }: ISidebar) => {
             {logo && <SidebarLogo>{logo}</SidebarLogo>}
             {items.map((item, index) => (
                 <SidebarItem key={index} onClick={item.onClick} active={item.active}>
-                    {item.icon && <Icon name={item.icon} />}
                     {item.label && <span>{item.label}</span>}
                 </SidebarItem>
             ))}

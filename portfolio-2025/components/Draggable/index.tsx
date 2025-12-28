@@ -17,6 +17,7 @@ import { iconName } from "../Icon/types";
 import { handleMouseDownResize } from "./handlers";
 import { windows } from "@/app/types";
 import { getWindowTop, getWindowLeft, getWindowWidth, getWindowHeight } from "./windowHelpers";
+import { WindowSnapPreview } from "../WindowSnapPreview";
 
 export const Draggable = ({
   children,
@@ -32,6 +33,7 @@ export const Draggable = ({
   const [screenSize, setScreenSize] = useState({ width: 0, height: 0 });
   const [renderMaximizedPreview, setRenderMaximizedPreview] = useState(false);
   const [wasDrawing, setWasDrawing] = useState(false);
+  const [showSnapPreview, setShowSnapPreview] = useState(false);
 
   const {
     toggleWindow,
@@ -77,14 +79,19 @@ export const Draggable = ({
       if (finalY <= 10) {
         toggleMaximized(windowKey, true);
         toggleSnapped(windowKey, null);
+        bringWindowToFront(windowKey);
       }
       else if (finalX <= 40) {
         toggleSnapped(windowKey, 'left');
         toggleMaximized(windowKey, false);
+        setShowSnapPreview(true);
+        bringWindowToFront(windowKey);
       }
       else if (finalRight <= 40) {
         toggleSnapped(windowKey, 'right');
         toggleMaximized(windowKey, false);
+        setShowSnapPreview(true);
+        bringWindowToFront(windowKey);
       }
     }
     setWasDrawing(isDragging);
@@ -117,8 +124,23 @@ export const Draggable = ({
 
   const styleParams = { isMaximized, snappedState, screenSize, top, left, size };
 
+  const handleSelectWindow = (selectedWindow: windows) => {
+    const oppositeSide = snappedState === 'left' ? 'right' : 'left';
+    toggleSnapped(selectedWindow, oppositeSide);
+    setWindowPosition(selectedWindow, oppositeSide === 'left' ? 0 : screenSize.width / 2, 0);
+    setShowSnapPreview(false);
+  };
+
   return (
     <>
+      {showSnapPreview && snappedState && (
+        <WindowSnapPreview
+          currentWindow={windowKey}
+          snapSide={snappedState}
+          onSelectWindow={handleSelectWindow}
+          onClose={() => setShowSnapPreview(false)}
+        />
+      )}
       <Container
         index={openWindows[windowKey]?.zIndex ?? 3}
         onClickCapture={() => bringWindowToFront(windowKey)}

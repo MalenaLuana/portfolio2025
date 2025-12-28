@@ -36,6 +36,61 @@ export const texts = {
     wellcomeAlert: {
       title: "¡Bienvenidx! Gracias por pasar. Podés explorar libremente este portfolio — cada botón te muestra algo distinto, así que sentite con confianza de ir  descubriendo todo lo que hay.",
     },
+    home: {
+      experience: "Experiencia",
+      projects: "Proyectos",
+      skills: "Habilidades",
+      about: "Sobre mí",
+      profile: {
+        name: "Malena Luana Fresco",
+        role: "Frontend Developer / Artista visual",
+      },
+      experienceCard: {
+        title: "Experiencia",
+        value: "3 años",
+        labels: [
+          "Desarrollo frontend",
+          "E-commerce",
+          "Componentes reutilizables",
+          "Performance web",
+          "Experiencia de usuario",
+        ],
+      },
+      skillsCard: {
+        title: "Habilidades técnicas",
+        items: [
+          {
+            label: "Frontend Development",
+            value: "React, Next.js, TypeScript, JavaScript",
+          },
+          {
+            label: "Backend Development",
+            value: "Node.js, Express, APIs",
+          },
+          {
+            label: "Database",
+            value: "MongoDB, PostgreSQL",
+          },
+          {
+            label: "Tools & Others",
+            value: "Git, Docker, CI/CD",
+          },
+        ],
+      },
+      aboutCard: {
+        title: "Sobre mí",
+        items: [
+          {
+            label: "Ubicación",
+            value: "Buenos Aires, Argentina",
+          },
+          {
+            label: "Email",
+            value: "malenaluana98@gmail.com",
+          },
+        ],
+      },
+    }
   },
 
   [languages.inglish]: {},

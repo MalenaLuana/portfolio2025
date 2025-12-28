@@ -1,6 +1,17 @@
 import { color } from "@/utils/constants";
-import { styled } from "@mui/material";
+import { styled, keyframes } from "@mui/material";
 import { GlassCard } from "@/components/GlassCard";
+
+const slideUp = keyframes`
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+`;
 
 export const DashboardContainer = styled("div")(() => ({
     display: "flex",
@@ -13,7 +24,7 @@ export const DashboardContainer = styled("div")(() => ({
 export const MainContent = styled("div")(() => ({
     flex: 1,
     padding: "2rem",
-    overflowY: "auto",
+    overflowY: "scroll",
     display: "flex",
     flexDirection: "column",
     gap: "1.5rem",
@@ -49,10 +60,11 @@ export const CardsGrid = styled("div")(() => ({
     width: "100%",
 }));
 
-export const StatsCard = styled(GlassCard)(() => ({
+export const StatsCard = styled(GlassCard)<{ delay?: number }>(({ delay = 0 }) => ({
     display: "flex",
     flexDirection: "column",
     gap: "1rem",
+    animation: `${slideUp} 0.6s ease-out ${delay * 0.1}s both`,
 }));
 
 export const CardTitle = styled("h3")(() => ({

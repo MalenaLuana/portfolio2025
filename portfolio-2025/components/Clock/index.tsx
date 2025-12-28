@@ -10,19 +10,16 @@ export const Clock = () => {
     const hours = currentTime.getHours();
     const minutes = currentTime.getMinutes();
 
-    const formattedTime = `${hours % 12 || 12}:${
-      minutes < 10 ? `0${minutes}` : minutes
-    } ${hours >= 12 ? "PM" : "AM"}`;
+    const formattedTime = `${hours % 12 || 12}:${minutes < 10 ? `0${minutes}` : minutes
+      } ${hours >= 12 ? "PM" : "AM"}`;
 
-    const formattedDate = `${
-      currentTime.getDate() < 10
+    const formattedDate = `${currentTime.getDate() < 10
         ? `0${currentTime.getDate()}`
         : currentTime.getDate()
-    }/${
-      currentTime.getMonth() + 1 < 10
+      }/${currentTime.getMonth() + 1 < 10
         ? `0${currentTime.getMonth() + 1}`
         : currentTime.getMonth() + 1
-    }/${currentTime.getFullYear()}`;
+      }/${currentTime.getFullYear()}`;
 
     setTime(formattedTime);
     setDate(formattedDate);

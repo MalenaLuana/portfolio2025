@@ -2,7 +2,6 @@ import { color } from "@/utils/constants";
 import { styled } from "@mui/material";
 
 export const SidebarContainer = styled("div")(() => ({
-  width: "80px",
   height: "100%",
   background: `linear-gradient(180deg, ${color.dark500}ee, ${color.dark500})`,
   borderRight: `1px solid ${color.primary700}80`,
@@ -10,7 +9,7 @@ export const SidebarContainer = styled("div")(() => ({
   flexDirection: "column",
   alignItems: "center",
   gap: "1rem",
-  padding: "1.5rem 0",
+  padding: "1.5rem 10px",
   boxShadow: `4px 0 16px ${color.dark500}80`,
 }));
 
@@ -27,11 +26,10 @@ export const SidebarLogo = styled("div")(() => ({
 }));
 
 export const SidebarItem = styled("div")<{ active?: boolean }>(({ active }) => ({
-  width: "48px",
-  height: "48px",
+  width: "100%",
+  padding: '10px',
   display: "flex",
   alignItems: "center",
-  justifyContent: "center",
   borderRadius: "12px",
   cursor: "pointer",
   position: "relative",
@@ -39,10 +37,10 @@ export const SidebarItem = styled("div")<{ active?: boolean }>(({ active }) => (
   background: active ? `${color.primary700}40` : "transparent",
   border: active ? `1px solid #b794f680` : `1px solid transparent`,
   transition: "all 0.2s ease",
-  
+  userSelect: 'none',
   "&:hover": {
     background: `${color.primary700}60`,
-    color: "#b794f6",
+    color: "#9a90acff",
     transform: "translateX(4px)",
     boxShadow: `0 0 12px #b794f640`,
   },
@@ -50,8 +48,8 @@ export const SidebarItem = styled("div")<{ active?: boolean }>(({ active }) => (
   "&::before": active ? {
     content: '""',
     position: "absolute",
-    left: "-1px",
     top: "50%",
+    left: "-1px",
     transform: "translateY(-50%)",
     width: "3px",
     height: "60%",
