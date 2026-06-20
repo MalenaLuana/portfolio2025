@@ -1,10 +1,11 @@
 export enum color {
   // color primario
-  primary100 = "#D4E5EF",
-  primary300 = "#B7D2E2",
-  primary500 = "#8DA7B9",
-  primary700 = "#4D6475",
-  primary800 = "#435058",
+  primary50 = "#ece9d9",
+  primary100 = "#E2D6DA",
+  primary300 = "#C3B0D6",
+  primary500 = "#AA9CB8",
+  primary700 = "#635D79",
+  primary800 = "#484357",
   //background
   white500 = "#FFFFFF",
   //blue

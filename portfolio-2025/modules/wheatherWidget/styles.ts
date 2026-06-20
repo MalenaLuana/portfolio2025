@@ -9,16 +9,15 @@ export const MainContainer = styled("div")({
   gap: "10px",
   alignItems: "center",
   justifyContent: "center",
-  backgroundColor: `${color.blue500}80`,
+  backgroundColor: `${color.primary800}50`,
   position: "absolute",
   left: "40px",
   top: "30px",
   padding: "20px",
-  borderRadius: "10px",
   lineHeight: 0,
   color: "white",
   border: "2px solid",
-  borderColor: color.blue500,
+  borderColor: color.primary500,
   zIndex: 0,
 });
 

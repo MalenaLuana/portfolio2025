@@ -8,5 +8,6 @@ export interface IButton {
   color?: color;
   onClick: () => void;
   className?: string;
+  active?: boolean;
   onPointerDown?: PointerEventHandler<HTMLButtonElement> | undefined;
 }

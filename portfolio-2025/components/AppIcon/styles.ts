@@ -20,11 +20,10 @@ export const Container = styled("div")<{
   bottom,
   color: "white",
   padding: "10px",
-  borderRadius: "5px",
   border: "solid 2px",
   borderColor: active ? color.primary300 : "transparent",
   zIndex: 1,
-  background: active ? `${color.primary100}80` : "transparent",
+  background: active ? `${color.primary100}40` : "transparent",
   ":hover": { cursor: "pointer", background: `${color.primary300}80` },
   width: "110px",
 }));
@@ -38,7 +37,7 @@ export const Icon = styled("div")(() => ({
 export const Label = styled("p")(() => ({
   textAlign: "center",
   width: "100%",
-  color: color.dark500,
+  color: color.primary800,
   padding: "2px",
-  backgroundColor: color.primary100,
+  backgroundColor: `${color.primary100}50`,
 }));

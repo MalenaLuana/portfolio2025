@@ -1,5 +1,11 @@
-export const playSound = (soundName: string) => {
+export const playSound = (
+  soundName: string,
+  volumen?: number,
+  auto?: boolean,
+) => {
   const sound = new Audio(`/sounds/${soundName}.mp3`);
-  sound.volume = 1;
-  sound.play();
+  sound.volume = volumen || 1;
+  auto && sound.play();
+
+  return sound;
 };

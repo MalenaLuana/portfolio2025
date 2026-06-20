@@ -2,27 +2,43 @@
 import { WindowsProvider } from "@/context/windowsContext";
 import "./globals.css";
 import { NavBar } from "@/components/NavBar";
-import { Lexend_Exa } from "next/font/google";
+import { Pixelify_Sans } from "next/font/google";
 import { WallpaperProvider } from "@/context/wallpaperContext";
 import { LayoutBox } from "./styles";
+import { InitLoader } from "@/modules/initLoader";
+import { useState, useEffect } from "react";
 
-const lexendFont = Lexend_Exa({ weight: "400", subsets: ["latin"] });
+const pixelFont = Pixelify_Sans({ weight: "400", subsets: ["latin"] });
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 100);
+
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <html lang="en">
-      <body className={lexendFont.className}>
-        <WindowsProvider>
-          <WallpaperProvider>
-            <LayoutBox>
-              {children}
-              <NavBar />
-            </LayoutBox>
-          </WallpaperProvider>
-        </WindowsProvider>
+      <body className={pixelFont.className}>
+        {isLoading ? (
+          <InitLoader />
+        ) : (
+          <WindowsProvider>
+            <WallpaperProvider>
+              <LayoutBox>
+                {children}
+                <NavBar />
+              </LayoutBox>
+            </WallpaperProvider>
+          </WindowsProvider>
+        )}
       </body>
     </html>
   );

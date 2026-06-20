@@ -90,7 +90,20 @@ export const texts = {
           },
         ],
       },
-    }
+    },
+    initLoader: {
+      windowTitle: "Portfolio.exe",
+      loadingText: "Ingresando al portfolio de",
+      name: "Portfolio 2026",
+      systemInfo: "v2.0.25 | Build 2026 | @MalenaFresco",
+      loadingSteps: [
+        "Inicializando sistema...",
+        "Cargando módulos creativos...",
+        "Estableciendo conexión artística...",
+        "Compilando experiencias...",
+        "Renderizando portfolio...",
+      ],
+    },
   },
 
   [languages.inglish]: {},

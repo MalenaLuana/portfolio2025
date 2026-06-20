@@ -8,6 +8,7 @@ import {
 } from "./styles";
 import { directions, keyboard } from "@/utils/constants";
 import { useWindows } from "@/context/windowsContext";
+import { playSound } from "@/utils/playSound";
 
 export const SnakeGame = () => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -50,7 +51,7 @@ export const SnakeGame = () => {
         prevSnake.map((segment) => ({
           x: Math.min(segment.x, newWidth - 1),
           y: Math.min(segment.y, newHeight - 1),
-        }))
+        })),
       );
     }
   }, []);
@@ -83,6 +84,7 @@ export const SnakeGame = () => {
     newSnake.unshift(head);
 
     if (head.x === food.x && head.y === food.y) {
+      playSound("snake-bite");
       setFood({
         x: Math.floor(Math.random() * gameWidth),
         y: Math.floor(Math.random() * gameHeight),
@@ -101,6 +103,7 @@ export const SnakeGame = () => {
         .slice(1)
         .some((segment) => segment.x === head.x && segment.y === head.y)
     ) {
+      playSound("game-over", 0.5, true);
       setGameOver(true);
     }
 
@@ -122,6 +125,11 @@ export const SnakeGame = () => {
     window.addEventListener("keydown", handleKeyPress);
     return () => window.removeEventListener("keydown", handleKeyPress);
   }, [direction]);
+
+  useEffect(() => {
+    playSound("8bit", 0.4);
+  }, []);
+
   return (
     <MainContainer
       ref={containerRef}
@@ -141,7 +149,7 @@ export const SnakeGame = () => {
       {gameOver && (
         <GameOverBox>
           <p> Game Over Score: {score}</p>
-          <PlayAgain onClick={resetGame}> Jugar de nuevo</PlayAgain>
+          <PlayAgain onClick={resetGame} label=" Jugar de nuevo" />
         </GameOverBox>
       )}
     </MainContainer>

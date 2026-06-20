@@ -12,9 +12,11 @@ export const Button = ({
   onClick,
   className,
   onPointerDown,
+  active,
 }: IButton) => {
   return (
     <ButtonStyled
+      active={String(active)}
       onPointerDown={onPointerDown}
       className={className}
       onMouseDown={() => playSound(sounds.buttonClick)}

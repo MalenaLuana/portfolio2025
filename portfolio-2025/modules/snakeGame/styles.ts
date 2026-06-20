@@ -13,12 +13,12 @@ export const MainContainer = styled("div")<{
   gridTemplateColumns: `repeat(${gameWidth}, 30px)`,
   gridTemplateRows: `repeat(${gameHeight}, 30px)`,
   gap: "1px",
-  backgroundColor: "#99B69A",
+  backgroundColor: "#93978e",
   position: "relative",
   fontFamily: "monospace",
   backgroundImage: `
-    linear-gradient(to right, rgba(32, 133, 46, 0.2) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(51, 99, 67, 0.2) 1px, transparent 1px)
+    linear-gradient(to right, rgba(32, 36, 32, 0.2) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(39, 43, 40, 0.2) 1px, transparent 1px)
   `,
   backgroundSize: "30px 30px",
   border: "solid 4px",
@@ -34,9 +34,9 @@ export const SnakeSegment = styled("div")<{
   left: `${positionX * 30}px`,
   width: "30px",
   height: "30px",
-  backgroundColor: color.dark500,
+  backgroundColor: color.primary800,
   border: "solid 4px",
-  borderColor: "#99B69A",
+  borderColor: color.primary50,
   boxShadow:
     "rgba(255, 255, 255, 0.2) 0px 0px 0px 1px inset, rgba(0, 0, 0, 0.9) 0px 0px 0px 1px;",
 }));
@@ -50,12 +50,12 @@ export const SnakeFood = styled("div")<{
   left: `${positionX * 30}px`,
   width: "30px",
   height: "30px",
-  borderRadius: "32px",
-  backgroundColor: color.dark500,
+  backgroundColor: "#dfa8c2",
 }));
 
 export const GameOverBox = styled("div")(() => ({
-  color: color.dark500,
+  color: color.primary100,
+  padding: "10px 20px",
   position: "absolute",
   top: "50%",
   left: "50%",
@@ -64,17 +64,17 @@ export const GameOverBox = styled("div")(() => ({
   flexDirection: "column",
   justifyContent: "center",
   alignItems: "center",
+  backgroundColor: color.primary700,
+  boxShadow: `3px 3px 0px ${color.primary800}`,
 }));
 
-export const PlayAgain = styled("button")(() => ({
+export const PlayAgain = styled(Button)(() => ({
   transition: "none",
-  backgroundColor: color.dark500,
+  backgroundColor: color.primary800,
   color: "#99B69A",
-  fontFamily: "monospace",
   padding: "5px 10px",
   border: "solid 4px",
-  borderColor: "#99B69A",
-  boxShadow:
-    "rgba(255, 255, 255, 0.2) 0px 0px 0px 1px inset, rgba(0, 0, 0, 0.9) 0px 0px 0px 1px;",
+  borderColor: "rgb(166, 168, 166)",
+  boxShadow: `4px 4px ${color.primary800}50`,
   ":hover": { cursor: "pointer" },
 }));
