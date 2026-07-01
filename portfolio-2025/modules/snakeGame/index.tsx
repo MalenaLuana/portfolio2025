@@ -59,18 +59,21 @@ export const SnakeGame = () => {
   useEffect(() => {
     updateGameSize();
     window.addEventListener("resize", updateGameSize);
+
     return () => window.removeEventListener("resize", updateGameSize);
   }, [openWindows.snakeGame?.maximized]);
 
   useEffect(() => {
     if (gameOver) return;
 
+    const speed = Math.max(80, 200 - score * 5);
+
     const interval = setInterval(() => {
       moveSnake();
-    }, 200);
+    }, speed);
 
     return () => clearInterval(interval);
-  }, [snake, gameOver]);
+  }, [snake, gameOver, score]);
 
   const moveSnake = () => {
     let newSnake = [...snake];
@@ -84,12 +87,14 @@ export const SnakeGame = () => {
     newSnake.unshift(head);
 
     if (head.x === food.x && head.y === food.y) {
-      playSound("snake-bite");
+      playSound("snake-bite", 0.6, true);
+
       setFood({
         x: Math.floor(Math.random() * gameWidth),
         y: Math.floor(Math.random() * gameHeight),
       });
-      setScore(score + 1);
+
+      setScore((prevScore) => prevScore + 1);
     } else {
       newSnake.pop();
     }
@@ -104,6 +109,7 @@ export const SnakeGame = () => {
         .some((segment) => segment.x === head.x && segment.y === head.y)
     ) {
       playSound("game-over", 0.5, true);
+
       setGameOver(true);
     }
 
@@ -113,16 +119,20 @@ export const SnakeGame = () => {
   const handleKeyPress = (e: KeyboardEvent) => {
     if (e.key === keyboard.ArrowRight && direction !== directions.left)
       setDirection(directions.right);
+
     if (e.key === keyboard.ArrowLeft && direction !== directions.right)
       setDirection(directions.left);
+
     if (e.key === keyboard.ArrowUp && direction !== directions.down)
       setDirection(directions.up);
+
     if (e.key === keyboard.ArrowDown && direction !== directions.up)
       setDirection(directions.down);
   };
 
   useEffect(() => {
     window.addEventListener("keydown", handleKeyPress);
+
     return () => window.removeEventListener("keydown", handleKeyPress);
   }, [direction]);
 
@@ -145,11 +155,13 @@ export const SnakeGame = () => {
             positionY={segment.y}
           />
         ))}
+
       {!gameOver && <SnakeFood positionX={food.x} positionY={food.y} />}
+
       {gameOver && (
         <GameOverBox>
-          <p> Game Over Score: {score}</p>
-          <PlayAgain onClick={resetGame} label=" Jugar de nuevo" />
+          <p>Game Over Score: {score}</p>
+          <PlayAgain onClick={resetGame} label="Jugar de nuevo" />
         </GameOverBox>
       )}
     </MainContainer>

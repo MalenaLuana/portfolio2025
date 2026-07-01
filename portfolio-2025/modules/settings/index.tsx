@@ -2,7 +2,7 @@ import { ISettings } from "./types";
 import { Box, Image, ImagesBox, NewImage, SideBar } from "./styles";
 import image1 from "@/public/images/arcane.jpg";
 import image2 from "@/public/images/clouds.jpg";
-import image3 from "@/public/images/windows.jpeg";
+import image3 from "@/public/images/windows.jpg";
 import defaultImg from "@/public/images/cuadricula_back.jpg";
 import { useWallpaper } from "@/context/wallpaperContext";
 import { Divider } from "@mui/material";

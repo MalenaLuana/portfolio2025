@@ -12,10 +12,12 @@ import { SnakeGame } from "@/modules/snakeGame";
 import { AppIcon } from "@/components/AppIcon";
 import snakeImg from "@/public/images/Snake.png";
 import folder from "@/public/images/folder.png";
+import paintImg from "@/public/images/paint.png";
 import { UserProfile } from "@/modules/userProfile";
 import { FileExplorer } from "@/modules/fileExplorer";
 import { WellcomeAlert } from "@/components/wellcomeAlert";
 import { useState } from "react";
+import { Paint } from "@/modules/paint";
 
 export default function Home() {
   const { openWindows, setWindowPosition, toggleWindow } = useWindows();
@@ -25,6 +27,7 @@ export default function Home() {
     [windows.user]: <UserProfile />,
     [windows.snakeGame]: <SnakeGame />,
     [windows.fileExplorer]: <FileExplorer />,
+    [windows.paint]: <Paint />,
   };
 
   return (
@@ -44,7 +47,7 @@ export default function Home() {
         {Object.keys(openWindows)
           .filter(
             (windowName): windowName is windows =>
-              windowName in windowsComponents
+              windowName in windowsComponents,
           )
           .map((windowName) => {
             const windowKey = windowName as windows;
@@ -74,6 +77,12 @@ export default function Home() {
         onClick={() => toggleWindow(windows.fileExplorer, true)}
         label="Archivos muy importantes"
         position={{ top: "200px", right: "20px" }}
+      />
+      <AppIcon
+        image={paintImg.src}
+        onClick={() => toggleWindow(windows.paint, true)}
+        label="Paint"
+        position={{ top: "350px", right: "20px" }}
       />
       <WeatherWidget />
       {showAlert ? <WellcomeAlert onClose={() => setShowAlert(false)} /> : null}

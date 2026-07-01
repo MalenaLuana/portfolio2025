@@ -16,8 +16,14 @@ import { useWindows } from "@/context/windowsContext";
 import { iconName } from "../Icon/types";
 import { handleMouseDownResize } from "./handlers";
 import { windows } from "@/app/types";
-import { getWindowTop, getWindowLeft, getWindowWidth, getWindowHeight } from "./windowHelpers";
+import {
+  getWindowTop,
+  getWindowLeft,
+  getWindowWidth,
+  getWindowHeight,
+} from "./windowHelpers";
 import { WindowSnapPreview } from "../WindowSnapPreview";
+import { Typography } from "@mui/material";
 
 export const Draggable = ({
   children,
@@ -43,9 +49,12 @@ export const Draggable = ({
     toggleSnapped,
     bringWindowToFront,
   } = useWindows();
-  const [size, setSize] = useState(openWindows[windowKey]?.initialSize || { width: 500, height: 400 });
+  const [size, setSize] = useState(
+    openWindows[windowKey]?.initialSize || { width: 500, height: 400 },
+  );
 
   const isMaximized = Boolean(openWindows[windowKey]?.maximized);
+  const isMinimized = Boolean(openWindows[windowKey]?.isMinimized);
   const snappedState = openWindows[windowKey]?.snapped;
   const disabledResize = windowKey === windows.snakeGame;
 
@@ -68,7 +77,6 @@ export const Draggable = ({
     }
   }, [screenSize.width]);
 
-
   useEffect(() => {
     if (wasDrawing && !isDragging) {
       const finalY = (transform?.y ?? 0) + (top ?? 0);
@@ -80,15 +88,13 @@ export const Draggable = ({
         toggleMaximized(windowKey, true);
         toggleSnapped(windowKey, null);
         bringWindowToFront(windowKey);
-      }
-      else if (finalX <= 40) {
-        toggleSnapped(windowKey, 'left');
+      } else if (finalX <= 40) {
+        toggleSnapped(windowKey, "left");
         toggleMaximized(windowKey, false);
         setShowSnapPreview(true);
         bringWindowToFront(windowKey);
-      }
-      else if (finalRight <= 40) {
-        toggleSnapped(windowKey, 'right');
+      } else if (finalRight <= 40) {
+        toggleSnapped(windowKey, "right");
         toggleMaximized(windowKey, false);
         setShowSnapPreview(true);
         bringWindowToFront(windowKey);
@@ -118,16 +124,36 @@ export const Draggable = ({
     } else {
       setRenderMaximizedPreview(false);
     }
-  }, [transform?.y, transform?.x, isDragging, top, isMaximized, snappedState, screenSize, size]);
+  }, [
+    transform?.y,
+    transform?.x,
+    isDragging,
+    top,
+    isMaximized,
+    snappedState,
+    screenSize,
+    size,
+  ]);
 
   const renderBorders = !isMaximized && !snappedState && !disabledResize;
 
-  const styleParams = { isMaximized, snappedState, screenSize, top, left, size };
+  const styleParams = {
+    isMaximized,
+    snappedState,
+    screenSize,
+    top,
+    left,
+    size,
+  };
 
   const handleSelectWindow = (selectedWindow: windows) => {
-    const oppositeSide = snappedState === 'left' ? 'right' : 'left';
+    const oppositeSide = snappedState === "left" ? "right" : "left";
     toggleSnapped(selectedWindow, oppositeSide);
-    setWindowPosition(selectedWindow, oppositeSide === 'left' ? 0 : screenSize.width / 2, 0);
+    setWindowPosition(
+      selectedWindow,
+      oppositeSide === "left" ? 0 : screenSize.width / 2,
+      0,
+    );
     setShowSnapPreview(false);
   };
 
@@ -142,6 +168,7 @@ export const Draggable = ({
         />
       )}
       <Container
+        isMinimized={isMinimized}
         index={openWindows[windowKey]?.zIndex ?? 3}
         onClickCapture={() => bringWindowToFront(windowKey)}
         onDragEnter={() => bringWindowToFront(windowKey)}
@@ -167,11 +194,11 @@ export const Draggable = ({
           onDoubleClick={() =>
             toggleMaximized(
               windowKey,
-              !Boolean(openWindows[windowKey]?.maximized)
+              !Boolean(openWindows[windowKey]?.maximized),
             )
           }
         >
-          <p>{openWindows[windowKey]?.title}</p>
+          <Typography>{openWindows[windowKey]?.title}</Typography>
           <ButtonContainer>
             <ActionButton
               onPointerDown={(e) => e.stopPropagation()}
@@ -179,7 +206,7 @@ export const Draggable = ({
                 bringWindowToFront(windowKey);
                 toggleMaximized(
                   windowKey,
-                  !Boolean(openWindows[windowKey]?.maximized)
+                  !Boolean(openWindows[windowKey]?.maximized),
                 );
               }}
               icon={iconName.maximize}
@@ -199,7 +226,7 @@ export const Draggable = ({
                 e,
                 resizeDirection.horizontal,
                 size,
-                setSize
+                setSize,
               )
             }
           />

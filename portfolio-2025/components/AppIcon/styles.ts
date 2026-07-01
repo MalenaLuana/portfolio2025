@@ -9,6 +9,7 @@ export const Container = styled("div")<{
   bottom?: string;
   absolute?: boolean;
 }>(({ active, top, left, right, bottom, absolute }) => ({
+  userSelect: "none",
   display: "flex",
   flexDirection: "column",
   fontSize: 12,

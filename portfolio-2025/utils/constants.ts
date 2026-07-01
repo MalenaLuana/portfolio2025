@@ -7,14 +7,14 @@ export enum color {
   primary700 = "#635D79",
   primary800 = "#484357",
   //background
-  white500 = "#FFFFFF",
+  white500 = "#ebeae2",
   //blue
   blue500 = "#4B80A5",
   blue700 = "#495D6A",
   //yellow
   yellow500 = "#FFF58A",
   //dark
-  dark500 = "#2A2C30",
+  dark500 = "#2b2e31",
 }
 
 export enum keyboard {

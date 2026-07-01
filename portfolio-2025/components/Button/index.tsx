@@ -23,7 +23,7 @@ export const Button = ({
       onClick={onClick}
     >
       {label && <Typography color={color}>{label}</Typography>}
-      {icon && <Icon name={icon} color={color} />}
+      {icon && <Icon name={icon} color={color} width="15px" />}
     </ButtonStyled>
   );
 };

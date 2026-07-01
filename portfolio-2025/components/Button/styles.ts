@@ -12,7 +12,7 @@ export const ButtonStyled = styled(Button)<ButtonStyledProps>(
     borderLeft: "solid 3px",
     borderColor:
       active == "true" ? color.primary700 : customcolor || color.primary100,
-    color: customcolor || color.primary700,
+    color: customcolor || color.primary800,
     transition: "all 0.1s ease-in-out",
     borderRadius: 0,
     boxShadow:

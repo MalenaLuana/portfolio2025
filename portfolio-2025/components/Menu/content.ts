@@ -11,14 +11,14 @@ export const menuContent = ({
     {
       icon: iconName.userSquare,
       onClick: () => toggleWindow(windows.user, !openWindows.user?.isOpen),
-      label: "Perfil",
+      label: "- Perfil",
     },
-    { icon: iconName.mail, onClick: () => {}, label: "Casilla de e-mail" },
-    { icon: iconName.image, onClick: () => {}, label: "Galería" },
+    { icon: iconName.mail, onClick: () => {}, label: "- Casilla de e-mail" },
+    { icon: iconName.image, onClick: () => {}, label: "- Galería" },
     {
       icon: iconName.cog,
       onClick: () => setOpenSettings(true),
-      label: "Ajustes",
+      label: "- Ajustes",
     },
   ];
 };

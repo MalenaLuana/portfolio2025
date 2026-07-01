@@ -3,15 +3,16 @@ import { Box, styled } from "@mui/material";
 
 export const Container = styled(Box)(({}) => ({
   position: "absolute",
-  bottom: "110%",
-  left: "5px",
+  bottom: "120%",
+  left: "20px",
   minHeight: "20rem",
-  minWidth: "8rem",
+  minWidth: "15rem",
   backgroundColor: color.primary100,
-  borderTop: "solid 3px",
-  borderLeft: "solid 3px",
-  boxShadow: `3px 3px 0px ${color.primary700}80`,
-  borderColor: color.primary50,
+  border: "solid 6px",
+  borderColor: color.primary500,
+  borderTopColor: color.primary50,
+  borderLeftColor: color.primary50,
+  boxShadow: `6px 6px 0px ${color.primary800}`,
   display: "flex",
   flexDirection: "column",
 }));

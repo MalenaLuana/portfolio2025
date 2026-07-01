@@ -36,9 +36,9 @@ export const Content = styled("div")(() => ({
   position: "relative",
   width: "100%",
   display: "flex",
-  alignItems: "center",
   justifyContent: "center",
   padding: "1.5rem",
+  flexDirection: "column",
 }));
 
 export const IconStyled = styled(Icon)(() => ({

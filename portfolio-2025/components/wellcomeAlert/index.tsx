@@ -4,13 +4,16 @@ import { IWellcomeAlertProps } from "./types";
 import { texts } from "@/dictionary";
 
 export const WellcomeAlert = ({ onClose }: IWellcomeAlertProps) => {
-    const { wellcomeAlert } = texts.es
-    return (
-        <WellcomeAlertStyled>
-            <Content>
-                <Typography variant="h6" >{wellcomeAlert.title}</Typography>
-                <IconStyled name="close" onClick={onClose} />
-            </Content>
-        </WellcomeAlertStyled>
-    )
-}
+  const { wellcomeAlert } = texts.es;
+  return (
+    <WellcomeAlertStyled>
+      <Content>
+        <Typography variant="h6" fontWeight={"bold"}>
+          {wellcomeAlert.title}
+        </Typography>
+        <Typography variant="body1">{wellcomeAlert.description}</Typography>
+        <IconStyled name="close" onClick={onClose} />
+      </Content>
+    </WellcomeAlertStyled>
+  );
+};

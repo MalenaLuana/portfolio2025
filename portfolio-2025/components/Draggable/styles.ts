@@ -27,10 +27,12 @@ const contentPopIn = keyframes`
 
 export const Container = styled("div")<{
   maximized: boolean;
+  isMinimized: boolean;
   index: number;
-}>(({ maximized, index }) => ({
+}>(({ maximized, index, isMinimized }) => ({
+  display: isMinimized ? "none" : "unset",
   width: maximized ? "100%" : "auto",
-  height: maximized ? "90vh" : "auto",
+  height: maximized ? "100vh" : "auto",
   overflow: "hidden",
   boxShadow: `6px 6px 0px ${color.primary800}`,
   zIndex: index,
@@ -51,7 +53,7 @@ export const TopHandler = styled("div")(() => ({
   borderTopColor: color.primary50,
   borderLeftColor: color.primary50,
   background: color.primary500,
-  color: color.primary800,
+  color: color.primary700,
   width: "100%",
   display: "flex",
   justifyContent: "space-between",
@@ -79,7 +81,7 @@ export const Content = styled("div")(() => ({
 
 export const ButtonContainer = styled("div")(() => ({
   display: "flex",
-  gap: "10px",
+  gap: "2px",
 }));
 
 export const ActionButton = styled(Button)(() => ({
@@ -90,9 +92,9 @@ export const ActionButton = styled(Button)(() => ({
   borderLeftColor: color.primary50,
   background: color.primary500,
   boxShadow: "none",
-  padding: 0,
-  minWidth: "40px",
-  minHeight: "40px",
+  padding: "0 4px",
+  minWidth: "10px",
+  minHeight: "10px",
   ":hover": {
     background: `${color.primary700}40`,
     transform: "none",

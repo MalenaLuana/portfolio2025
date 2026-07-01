@@ -34,7 +34,9 @@ export const texts = {
       title2: "Archivos recientes (1)",
     },
     wellcomeAlert: {
-      title: "¡Bienvenidx! Gracias por pasar. Podés explorar libremente este portfolio — cada botón te muestra algo distinto, así que sentite con confianza de ir  descubriendo todo lo que hay.",
+      title: "- ¡Bienvenidx!",
+      description:
+        "Este espacio digital es mi portfolio. Siéntete libre de mirar a tu alrededor.",
     },
     home: {
       experience: "Experiencia",

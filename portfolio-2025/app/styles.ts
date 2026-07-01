@@ -3,7 +3,7 @@ import { styled } from "@mui/material";
 
 export const MainContainer = styled("div")<{ backgroundImage: string }>(
   ({ backgroundImage }) => ({
-    // backgroundImage: `url(${backgroundImage})`,
+    backgroundImage: `url(${backgroundImage})`,
     backgroundColor: color.primary700,
     height: "100vh",
     position: "relative",

@@ -1,59 +1,56 @@
 import { color } from "@/utils/constants";
 import { styled } from "@mui/material";
-
 export const SidebarContainer = styled("div")(() => ({
   height: "100%",
-  background: `linear-gradient(180deg, ${color.dark500}ee, ${color.dark500})`,
-  borderRight: `1px solid ${color.primary700}80`,
+  width: "100px",
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
-  gap: "1rem",
-  padding: "1.5rem 10px",
-  boxShadow: `4px 0 16px ${color.dark500}80`,
+  gap: "8px",
+  padding: "12px 0 0 12px",
+  background: color.primary700,
 }));
 
 export const SidebarLogo = styled("div")(() => ({
-  width: "48px",
-  height: "48px",
-  marginBottom: "2rem",
+  width: "70px",
+  height: "70px",
+  marginBottom: "20px",
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
-  color: "#b794f6",
-  fontSize: "24px",
-  fontWeight: "bold",
+  color: color.primary300,
 }));
 
-export const SidebarItem = styled("div")<{ active?: boolean }>(({ active }) => ({
-  width: "100%",
-  padding: '10px',
-  display: "flex",
-  alignItems: "center",
-  borderRadius: "12px",
-  cursor: "pointer",
-  position: "relative",
-  color: active ? "#b794f6" : color.primary500,
-  background: active ? `${color.primary700}40` : "transparent",
-  border: active ? `1px solid #b794f680` : `1px solid transparent`,
-  transition: "all 0.2s ease",
-  userSelect: 'none',
-  "&:hover": {
-    background: `${color.primary700}60`,
-    color: "#9a90acff",
-    transform: "translateX(4px)",
-    boxShadow: `0 0 12px #b794f640`,
-  },
+export const SidebarItem = styled("div")<{ active?: boolean }>(
+  ({ active }) => ({
+    width: "100%",
+    height: "44px",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    position: "relative",
+    cursor: "pointer",
+    userSelect: "none",
+    color: active ? color.primary700 : color.primary700,
+    background: active ? color.primary100 : color.primary500,
+    transition: "background-color .1s",
+    border: "solid",
+    borderRight: "none",
+    borderColor: color.white500,
+    "&:hover": {
+      background: active ? color.primary100 : `${color.primary800}50`,
+    },
 
-  "&::before": active ? {
-    content: '""',
-    position: "absolute",
-    top: "50%",
-    left: "-1px",
-    transform: "translateY(-50%)",
-    width: "3px",
-    height: "60%",
-    background: "#b794f6",
-    borderRadius: "0 2px 2px 0",
-  } : {},
-}));
+    "&::before": active
+      ? {
+          content: '""',
+          position: "absolute",
+          left: "-2px",
+          top: 0,
+          bottom: 0,
+          width: "4px",
+          background: color.primary100,
+        }
+      : {},
+  }),
+);

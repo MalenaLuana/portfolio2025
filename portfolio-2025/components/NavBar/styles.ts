@@ -4,7 +4,8 @@ import { styled } from "@mui/material";
 export const Container = styled("nav")(() => ({
   backgroundColor: color.primary500,
   width: "100%",
-  padding: "10px",
+  height: "70px",
+  padding: "10px 40px",
   display: "flex",
   alignItems: "center",
   gap: "50px",
@@ -22,6 +23,14 @@ export const Content = styled("div")(() => ({
   alignItems: "center",
   position: "relative",
   justifyContent: "space-between",
+}));
+
+export const WindowsButtons = styled("div")(() => ({
+  height: "100%",
+  display: "flex",
+  alignItems: "center",
+  position: "relative",
+  gap: "10px",
 }));
 
 export const ButtonContainer = styled("div")(() => ({

@@ -11,14 +11,16 @@ export const WindowsProvider = ({ children }: { children: ReactNode }) => {
   }>({
     [windows.user]: {
       isOpen: false,
+      isMinimized: false,
       position: { x: 0, y: 0 },
       ref: null,
       title: windowsTitle.user,
       zIndex: 3,
-      initialSize: { width: 1000, height: 400 },
+      initialSize: { width: 1000, height: 800 },
     },
     [windows.snakeGame]: {
       isOpen: false,
+      isMinimized: false,
       position: { x: 0, y: 0 },
       ref: null,
       title: windowsTitle.snakeGame,
@@ -28,15 +30,29 @@ export const WindowsProvider = ({ children }: { children: ReactNode }) => {
     },
     [windows.fileExplorer]: {
       isOpen: false,
+      isMinimized: false,
       position: { x: 0, y: 0 },
       ref: null,
-      title: "",
+      title: "Archivos",
       zIndex: 5,
+      initialSize: { width: 800, height: 600 },
+    },
+    [windows.paint]: {
+      isOpen: false,
+      isMinimized: false,
+      position: { x: 0, y: 0 },
+      ref: null,
+      title: "Paint",
+      zIndex: 6,
       initialSize: { width: 800, height: 600 },
     },
   });
 
-  const toggleWindow = (windowName: windows, value: boolean, toggleAll?: boolean) => {
+  const toggleWindow = (
+    windowName: windows,
+    value: boolean,
+    toggleAll?: boolean,
+  ) => {
     if (toggleAll) {
       setOpenWindows((prev) => {
         const updated = { ...prev };
@@ -94,7 +110,7 @@ export const WindowsProvider = ({ children }: { children: ReactNode }) => {
   const bringWindowToFront = (windowName: windows) => {
     const highestZIndex = Math.max(
       ...Object.values(openWindows).map((w) => w?.zIndex ?? 0),
-      0
+      0,
     );
     setOpenWindows((prev) => ({
       ...prev,
@@ -105,7 +121,11 @@ export const WindowsProvider = ({ children }: { children: ReactNode }) => {
     }));
   };
 
-  const setWindowSize = (windowName: windows, width: number, height: number) => {
+  const setWindowSize = (
+    windowName: windows,
+    width: number,
+    height: number,
+  ) => {
     setOpenWindows((prev) => ({
       ...prev,
       [windowName]: {
@@ -115,7 +135,10 @@ export const WindowsProvider = ({ children }: { children: ReactNode }) => {
     }));
   };
 
-  const toggleSnapped = (windowName: windows, value: 'left' | 'right' | null) => {
+  const toggleSnapped = (
+    windowName: windows,
+    value: "left" | "right" | null,
+  ) => {
     setOpenWindows((prev) => ({
       ...prev,
       [windowName]: {
@@ -124,7 +147,27 @@ export const WindowsProvider = ({ children }: { children: ReactNode }) => {
       },
     }));
   };
+  const toggleMinimized = (windowName: windows, value: boolean) => {
+    setOpenWindows((prev) => ({
+      ...prev,
+      [windowName]: {
+        ...prev[windowName]!,
+        isMinimized: value,
+      },
+    }));
 
+    if (!value) {
+      bringWindowToFront(windowName);
+    }
+  };
+  const getOpenWindows = () => {
+    return Object.entries(openWindows)
+      .filter(([, window]) => window?.isOpen)
+      .map(([key, window]) => ({
+        name: key as windows,
+        ...window!,
+      }));
+  };
 
   return (
     <WindowsContext.Provider
@@ -136,7 +179,9 @@ export const WindowsProvider = ({ children }: { children: ReactNode }) => {
         toggleMaximized,
         toggleSnapped,
         bringWindowToFront,
-        setWindowSize
+        setWindowSize,
+        getOpenWindows,
+        toggleMinimized,
       }}
     >
       {children}

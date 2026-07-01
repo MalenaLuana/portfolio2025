@@ -14,104 +14,96 @@ const slideUp = keyframes`
 `;
 
 export const DashboardContainer = styled("div")(() => ({
-    display: "flex",
-    width: "100%",
-    height: "100%",
-    background: `linear-gradient(135deg, ${color.dark500}, #1a1a2e)`,
-    overflow: "hidden",
+  display: "flex",
+  width: "100%",
+  height: "100%",
+  overflow: "hidden",
+  userSelect: "none",
+  background: color.primary100,
 }));
 
 export const MainContent = styled("div")(() => ({
-    flex: 1,
-    padding: "2rem",
-    overflowY: "scroll",
-    display: "flex",
-    flexDirection: "column",
-    gap: "1.5rem",
+  flex: 1,
+  padding: "2rema",
+  display: "flex",
+  flexDirection: "column",
+  gap: "16px",
+  overflowY: "auto",
 }));
 
 export const Header = styled("div")(() => ({
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-    marginBottom: "1rem",
+  display: "flex",
+  justifyContent: "space-between",
+  alignItems: "center",
+  marginBottom: "1rem",
 }));
 
 export const Title = styled("h1")(() => ({
-    fontSize: "2rem",
-    fontWeight: 600,
-    color: "#b794f6",
-    margin: 0,
-    textShadow: "0 0 8px #b794f680",
-    fontFamily: "monospace",
+  margin: 0,
+  fontSize: "18px",
+  color: color.primary300,
+  textTransform: "uppercase",
+  textShadow: "2px 2px 0 #000",
 }));
 
 export const Subtitle = styled("p")(() => ({
-    fontSize: "0.9rem",
-    color: color.primary500,
-    margin: "0.5rem 0 0 0",
-    fontFamily: "monospace",
+  marginTop: "8px",
+  fontSize: "10px",
+  color: color.primary500,
 }));
 
 export const CardsGrid = styled("div")(() => ({
-    display: "grid",
-    gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
-    gap: "1.5rem",
-    width: "100%",
+  display: "grid",
+  gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
+  gap: "1.5rem",
+  width: "100%",
 }));
 
-export const StatsCard = styled(GlassCard)<{ delay?: number }>(({ delay = 0 }) => ({
-    display: "flex",
-    flexDirection: "column",
-    gap: "1rem",
-    animation: `${slideUp} 0.6s ease-out ${delay * 0.1}s both`,
+export const StatsCard = styled("div")<{ delay?: number }>(({ delay = 0 }) => ({
+  display: "flex",
+  flexDirection: "column",
+  gap: "12px",
+  padding: "16px",
+  background: color.dark500,
+  border: `2px solid ${color.primary700}`,
+  boxShadow: `
+    inset 2px 2px 0 ${color.primary300},
+    inset -2px -2px 0 ${color.dark500}
+  `,
+  animation: `${slideUp} .25s steps(5) ${delay * 0.05}s both`,
 }));
 
 export const CardTitle = styled("h3")(() => ({
-    fontSize: "1rem",
-    fontWeight: 600,
-    color: color.primary300,
-    margin: 0,
-    fontFamily: "monospace",
-    textTransform: "uppercase",
-    letterSpacing: "1px",
+  margin: 0,
+  fontSize: "10px",
+  textTransform: "uppercase",
+  color: color.primary500,
 }));
 
 export const CardValue = styled("div")(() => ({
-    fontSize: "2rem",
-    fontWeight: 700,
-    color: "#b794f6",
-    textShadow: "0 0 8px #b794f680",
-    fontFamily: "monospace",
+  fontSize: "20px",
+  color: color.primary300,
 }));
 
 export const CardLabel = styled("span")(() => ({
-    fontSize: "0.85rem",
-    color: color.primary500,
-    fontFamily: "monospace",
+  fontSize: "0.85rem",
+  color: color.primary500,
 }));
 
 export const InfoRow = styled("div")(() => ({
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-    padding: "0.75rem 0",
-    borderBottom: `1px solid ${color.primary700}40`,
-
-    "&:last-child": {
-        borderBottom: "none",
-    },
+  display: "flex",
+  justifyContent: "space-between",
+  padding: "8px 0",
+  borderBottom: `2px solid ${color.primary700}`,
 }));
 
 export const InfoLabel = styled("span")(() => ({
-    fontSize: "0.9rem",
-    color: color.primary500,
-    fontFamily: "monospace",
+  fontSize: "0.9rem",
+  color: color.primary500,
 }));
 
 export const InfoValue = styled("span")(() => ({
-    fontSize: "0.9rem",
-    fontWeight: 600,
-    color: "#b794f6",
-    fontFamily: "monospace",
+  fontSize: "0.9rem",
+  fontWeight: 600,
+  color: "#b794f6",
 }));

@@ -6,6 +6,8 @@ import { iconName } from "@/components/Icon/types";
 import { color } from "@/utils/constants";
 import { CircularProgress } from "@mui/material";
 import { useWeather } from "./hooks";
+import SunIllustration from "../../public/images/sun.png";
+import Background from "../../public/images/wood-frame.png";
 
 export const WeatherWidget = () => {
   const [weatherData, setWeatherData] = useState<WeatherResponse>();
@@ -18,15 +20,10 @@ export const WeatherWidget = () => {
   }, []);
 
   return (
-    <MainContainer>
+    <MainContainer imgSrc={Background.src}>
       {!isLoading ? (
         <>
-          <Icon
-            name={iconName.sun}
-            width="50px"
-            height="50px"
-            color={color.yellow500}
-          />
+          <img src={SunIllustration.src} width={80} height={80} />
           <Tempt>{weatherData?.current.temp_c}°</Tempt>
           <Wind>
             <p>Sensación térmica {weatherData?.current.feelslike_c}°</p>
