@@ -38,7 +38,8 @@ export const Icon = styled("div")(() => ({
 export const Label = styled("p")(() => ({
   textAlign: "center",
   width: "100%",
-  color: color.primary800,
+  color: color.primary100,
+  textShadow: "2px 2px 0px rgba(0, 0, 0, 0.4)",
   padding: "2px",
   backgroundColor: `${color.primary100}50`,
 }));

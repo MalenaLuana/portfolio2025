@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import {
   ActionBox,
   ActionButton,
+  BrushSlider,
   Canvas,
   CanvasContainer,
   ColorButton,
@@ -10,7 +11,6 @@ import {
   Container,
   Sidebar,
 } from "./styles";
-import { Toolbar } from "@mui/material";
 import { PAINT_COLORS, saveCanvas } from "./utils";
 import { color as nativesColors } from "../../utils/constants";
 const PIXEL_SIZE = 8;
@@ -19,7 +19,7 @@ export const Paint = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [isDrawing, setIsDrawing] = useState(false);
   const [color, setColor] = useState("#000000");
-  const [brushSize, setBrushSize] = useState(3);
+  const [brushSize, setBrushSize] = useState<number>(3);
 
   const fixCanvasSize = () => {
     const canvas = canvasRef.current;
@@ -118,7 +118,14 @@ export const Paint = () => {
           value={color}
           onChange={(e) => setColor(e.target.value)}
         />
-
+        <BrushSlider
+          defaultValue={brushSize}
+          value={brushSize}
+          min={1}
+          max={9}
+          step={2}
+          onChange={(_, value) => setBrushSize(value as number)}
+        />
         <ActionBox>
           <ActionButton onClick={clearCanvas} label="Limpiar" />
 
@@ -132,7 +139,7 @@ export const Paint = () => {
               })
             }
           />
-          <ActionButton onClick={fixCanvasSize} label="Fijar canvas" />
+          <ActionButton onClick={fixCanvasSize} label="Fijar" />
         </ActionBox>
       </Sidebar>
 

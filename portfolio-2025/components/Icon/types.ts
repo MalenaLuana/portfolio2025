@@ -15,6 +15,7 @@ export enum iconName {
   userSquare = "user-square",
   close = "close",
   maximize = "maximize",
+  minimize = "minimize",
   wind = "wind",
   sun = "sun",
   arrowLeft = "arrow-left",

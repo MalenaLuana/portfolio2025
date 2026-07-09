@@ -14,10 +14,17 @@ export const MainData = styled("div")(() => ({
 }));
 
 export const Column = styled("div")(() => ({
+  width: "100%",
   display: "flex",
   flexDirection: "column",
   gap: "10px",
   padding: "20px",
+}));
+
+export const Row = styled("div")(() => ({
+  display: "flex",
+  gap: "10px",
+  alignItems: "center",
 }));
 
 export const ProfilePhotoContainer = styled("div")(() => ({
@@ -64,4 +71,13 @@ export const ProfileName = styled(Typography)(() => ({
 export const ProfileRole = styled(Typography)(() => ({
   color: color.primary800,
   lineHeight: 1.8,
+}));
+
+export const ContentBox = styled("div")(() => ({
+  width: "100%",
+  padding: "1rem",
+  color: color.primary800,
+  background: `${color.primary500}50`,
+  border: "solid 1px",
+  borderColor: color.primary500,
 }));

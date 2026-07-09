@@ -15,9 +15,7 @@ export const MainContainer = styled("div")<{ imgSrc: string }>(
     backgroundPosition: "center",
     backgroundRepeat: "no-repeat",
     backgroundColor: `${color.primary800}50`,
-    position: "absolute",
-    left: "40px",
-    top: "30px",
+
     padding: "20px",
     lineHeight: 0,
     color: color.primary50,

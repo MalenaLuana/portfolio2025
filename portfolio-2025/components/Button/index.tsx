@@ -13,9 +13,11 @@ export const Button = ({
   className,
   onPointerDown,
   active,
+  disabled,
 }: IButton) => {
   return (
     <ButtonStyled
+      disabled={disabled}
       active={String(active)}
       onPointerDown={onPointerDown}
       className={className}

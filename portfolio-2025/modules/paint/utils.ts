@@ -44,6 +44,7 @@ export const PAINT_COLORS = [
   "#635d79",
   "#8b8297",
   "#a99cb7",
+  "#d6d6d6",
 
   "#3f5d1f",
   "#6f8a46",
@@ -51,27 +52,22 @@ export const PAINT_COLORS = [
   "#bdd48a",
 
   // Cremas
-  "#d7cfb3",
+  "#c5b86e",
   "#f1ebc8",
 
   // Arcoíris clásico
-  "#ff0000", // rojo
-  "#ff7f00", // naranja
-  "#ffff00", // amarillo
-  "#00ff00", // verde
-  "#00ffff", // cian
-  "#0000ff", // azul
-  "#8b00ff", // violeta
+  "#ca4141", // rojo
+  "#ca7f35", // naranja
+  "#ebeb84", // amarillo
+  "#aadddd", // cian
+  "#4949ad", // azul
+  "#9964c4", // violeta
 
   // Rosas
-  "#ff69b4",
-  "#c992b5",
+  "#c77ba1",
+  "#dfb2ce",
 
   // Marrones
-  "#73534a",
-  "#a67c52",
-
-  // Blanco y negro
-  "#ffffff",
-  "#000000",
+  "#5f453d",
+  "#a8927b",
 ];

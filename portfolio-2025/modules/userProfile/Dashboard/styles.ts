@@ -24,7 +24,7 @@ export const DashboardContainer = styled("div")(() => ({
 
 export const MainContent = styled("div")(() => ({
   flex: 1,
-  padding: "2rema",
+  padding: "2rem",
   display: "flex",
   flexDirection: "column",
   gap: "16px",

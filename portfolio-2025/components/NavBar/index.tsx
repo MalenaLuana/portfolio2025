@@ -40,8 +40,6 @@ export const NavBar = () => {
       </WindowsButtons>
       <Content>
         <Clock />
-
-        <Settings open={openSettings} onClose={handleSettingOnClose} />
       </Content>
     </Container>
   );

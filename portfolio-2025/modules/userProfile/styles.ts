@@ -3,7 +3,7 @@ import { styled } from "@mui/material";
 import { loading } from "./animations";
 
 export const MainContainer = styled("div")(() => ({
-  background: color.white500,
+  background: color.primary100,
   color: "rgba(226, 136, 253, 1)",
   minHeight: "100%",
   whiteSpace: "pre-line",
@@ -23,9 +23,9 @@ export const LoaderBox = styled("div")(() => ({
   alignItems: "center",
   gap: "20px",
   width: "500px",
-  color: color.primary500,
+  color: color.primary700,
   textAlign: "center",
-  background: color.dark500,
+  background: color.primary100,
   padding: "24px",
   border: `2px solid ${color.primary700}`,
   boxShadow: `
@@ -51,7 +51,7 @@ export const Loader = styled("div")(() => ({
   background: color.dark500,
   border: `2px solid ${color.primary700}`,
   boxShadow: `
-    inset -2px -2px 0 ${color.dark500},
+    inset -2px -2px 0 ${color.primary500},
     inset 2px 2px 0 ${color.primary300}
   `,
   overflow: "hidden",

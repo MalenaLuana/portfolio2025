@@ -5,24 +5,20 @@ import image2 from "@/public/images/clouds.jpg";
 import image3 from "@/public/images/windows.jpg";
 import defaultImg from "@/public/images/cuadricula_back.jpg";
 import { useWallpaper } from "@/context/wallpaperContext";
-import { Divider } from "@mui/material";
+import { Divider, Typography } from "@mui/material";
 import { color } from "@/utils/constants";
 import { Modal } from "@/components/Modal";
 import { useState } from "react";
 import { AddBackground } from "./addBackground/addBackground";
 
-export const Settings = ({ open, onClose }: ISettings) => {
+export const Settings = () => {
   const { setWallpaperImage } = useWallpaper();
   const [openModal, setOpenModal] = useState(false);
   const [newImage, setNewImage] = useState<string>();
-  const wallpapers = [defaultImg.src, image2.src, image3.src];
+  const wallpapers = [defaultImg.src, image2.src];
   return (
-    <SideBar open={open} onClose={onClose} anchor={"right"}>
-      <p>Fondo de pantalla</p>
-      <Divider
-        flexItem
-        style={{ borderColor: `${color.primary300}`, margin: "10px 0" }}
-      />
+    <Box>
+      <Typography variant="subtitle1">Fondo de pantalla</Typography>
       <Box>
         <ImagesBox>
           {wallpapers.map((imageSrc) => (
@@ -49,6 +45,6 @@ export const Settings = ({ open, onClose }: ISettings) => {
           onClose={() => setOpenModal(false)}
         />
       </Modal>
-    </SideBar>
+    </Box>
   );
 };

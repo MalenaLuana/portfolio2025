@@ -1,12 +1,14 @@
 import { Icon } from "@/components/Icon";
 import { color } from "@/utils/constants";
-import { ButtonBase, styled } from "@mui/material";
+import { styled } from "@mui/material";
 
 export const ModalBox = styled("div")({
   width: "100%",
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
+
+  userSelect: "none",
   textAlign: "center",
 });
 
@@ -29,26 +31,16 @@ export const DropArea = styled("div")({
   minHeight: "200px",
   display: "flex",
   flexDirection: "column",
+  gap: "1rem",
   justifyContent: "center",
   alignItems: "center",
   border: "dashed 2px",
   borderColor: color.primary500,
   backgroundColor: `${color.primary500}70`,
   padding: "50px",
+  userSelect: "none",
 });
 
-export const Button = styled(ButtonBase)({
-  padding: "10px 15px",
-  background: color.primary700,
-  color: color.primary100,
-  textTransform: "none",
-  fontFamily: "Lexend Exa",
-  lineHeight: 0,
-  minWidth: "200px",
-  "&.Mui-disabled": {
-    background: color.primary300,
-  },
-});
 export const ImagePreviewBox = styled("div")({
   position: "relative",
   display: "flex",
@@ -75,5 +67,16 @@ export const CloseIcon = styled(Icon)({
   right: 0,
   ":hover": {
     cursor: "pointer",
+  },
+});
+
+export const OpenFilesText = styled("span")({
+  marginTop: "0.5rem",
+  color: color.blue700,
+  cursor: "pointer",
+  textDecoration: "underline",
+
+  "&:hover": {
+    color: color.blue500,
   },
 });

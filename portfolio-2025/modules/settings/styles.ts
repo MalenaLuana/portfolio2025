@@ -16,6 +16,7 @@ export const Box = styled("div")({
   display: "flex",
   flexDirection: "column",
   gap: "4px",
+  color: color.primary100,
 });
 export const ImagesBox = styled("div")({
   width: "100%",

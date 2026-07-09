@@ -1,7 +1,30 @@
 import { color } from "@/utils/constants";
 import { styled, keyframes } from "@mui/material";
 import { Button } from "../Button";
+const minimizeAnimation = keyframes`
+  from {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
 
+  to {
+    opacity: 0;
+    transform:
+      translateY(350px)
+      scale(0.08);
+  }
+`;
+const restoreAnimation = keyframes`
+  from {
+    opacity: 0;
+    transform: translateY(400px) scale(0.15);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+`;
 const previewAnimation = keyframes`
   0% {
     opacity: 0;
@@ -30,7 +53,6 @@ export const Container = styled("div")<{
   isMinimized: boolean;
   index: number;
 }>(({ maximized, index, isMinimized }) => ({
-  display: isMinimized ? "none" : "unset",
   width: maximized ? "100%" : "auto",
   height: maximized ? "100vh" : "auto",
   overflow: "hidden",
@@ -42,9 +64,10 @@ export const Container = styled("div")<{
   border: "solid 3px",
   borderTopColor: color.primary50,
   borderLeftColor: color.primary50,
-  opacity: 0,
-  animation: `${popIn} 300ms ease-out forwards`,
-  willChange: "opacity",
+
+  animation: isMinimized
+    ? `${minimizeAnimation} 200ms ease-in forwards`
+    : `${popIn} 300ms ease-out forwards`,
 }));
 
 export const TopHandler = styled("div")(() => ({

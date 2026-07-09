@@ -1,5 +1,11 @@
 "use client";
-import { MainContainer } from "./styles";
+import {
+  FloatingBox,
+  GearImage,
+  MainContainer,
+  SettingBox,
+  SettingsButton,
+} from "./styles";
 import { windows } from "./types";
 import { useWindows } from "@/context/windowsContext";
 import { ReactElement } from "react";
@@ -18,11 +24,14 @@ import { FileExplorer } from "@/modules/fileExplorer";
 import { WellcomeAlert } from "@/components/wellcomeAlert";
 import { useState } from "react";
 import { Paint } from "@/modules/paint";
+import settingsImg from "@/public/images/gear.png";
+import { Settings } from "@/modules/settings";
 
 export default function Home() {
   const { openWindows, setWindowPosition, toggleWindow } = useWindows();
   const { wallpaperImage } = useWallpaper();
   const [showAlert, setShowAlert] = useState(true);
+  const [openSettings, setOpenSettings] = useState(false);
   const windowsComponents: Record<windows, ReactElement> = {
     [windows.user]: <UserProfile />,
     [windows.snakeGame]: <SnakeGame />,
@@ -84,7 +93,22 @@ export default function Home() {
         label="Paint"
         position={{ top: "350px", right: "20px" }}
       />
-      <WeatherWidget />
+      <FloatingBox>
+        <WeatherWidget />
+        <SettingsButton>
+          <GearImage
+            open={openSettings}
+            src={settingsImg}
+            alt=""
+            width={70}
+            onClick={() => setOpenSettings(!openSettings)}
+          />
+
+          <SettingBox open={openSettings}>
+            <Settings />
+          </SettingBox>
+        </SettingsButton>
+      </FloatingBox>
       {showAlert ? <WellcomeAlert onClose={() => setShowAlert(false)} /> : null}
     </MainContainer>
   );

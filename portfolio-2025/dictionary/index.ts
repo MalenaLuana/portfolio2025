@@ -25,7 +25,8 @@ export const texts = {
       addBackgroundModal: {
         title: "Carga tu imagen",
         subtitle: "Formato JPG o PNG",
-        label: "Arrastra tu imagen o haz click aquì para subir tu archivo",
+        label: "Arrastrá imagen o ",
+        label2: "para subir archivo",
         btnLabel: "Subir imagen",
       },
     },
@@ -46,6 +47,7 @@ export const texts = {
       profile: {
         name: "Malena Luana Fresco",
         role: "Frontend Developer / Artista visual",
+        place: "Buenos Aires, Argentina",
       },
       experienceCard: {
         title: "Experiencia",
@@ -81,16 +83,9 @@ export const texts = {
       },
       aboutCard: {
         title: "Sobre mí",
-        items: [
-          {
-            label: "Ubicación",
-            value: "Buenos Aires, Argentina",
-          },
-          {
-            label: "Email",
-            value: "malenaluana98@gmail.com",
-          },
-        ],
+
+        description:
+          "Hola! Yo soy Malena. Me dedico al desarrollo de software hace 4 años y al arte desde que nací. Me divierte mucho crear interfaces y diseñar proyectos desde cero.",
       },
     },
     initLoader: {

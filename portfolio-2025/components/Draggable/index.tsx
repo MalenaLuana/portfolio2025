@@ -43,6 +43,7 @@ export const Draggable = ({
 
   const {
     toggleWindow,
+    toggleMinimized,
     setWindowPosition,
     openWindows,
     toggleMaximized,
@@ -200,6 +201,17 @@ export const Draggable = ({
         >
           <Typography>{openWindows[windowKey]?.title}</Typography>
           <ButtonContainer>
+            <ActionButton
+              onPointerDown={(e) => e.stopPropagation()}
+              onClick={() => {
+                bringWindowToFront(windowKey);
+                toggleMinimized(
+                  windowKey,
+                  !Boolean(openWindows[windowKey]?.maximized),
+                );
+              }}
+              icon={iconName.minimize}
+            />
             <ActionButton
               onPointerDown={(e) => e.stopPropagation()}
               onClick={() => {
